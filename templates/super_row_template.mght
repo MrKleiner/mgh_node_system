@@ -1,0 +1,16 @@
+			<div class="super_node_content_row">
+              <div class="super_node_content_row_container">
+                <input readonly="1" class="super_node_content_text" value="Flying Spaghetti Monster"></input>
+                <div class="super_node_content_util">
+                   <div mgh_link_btn_valid="0" class="super_node_content_copy_link standard_btn_1">
+						 <div class="content_link_editor class_hidden">
+							<div class="content_link_editor_btns">OK</div>
+							<div class="content_link_editor_input_container">
+								<input class="content_link_editor_input" value=""></input>
+							</div>
+						 </div>
+					 </div> 
+                   <input onselect="clearSelection()" class="super_node_content_date standard_btn_1 row_temp_date_tgt" readonly="1" value="00/04/2021"></input>
+                </div>
+              </div>
+            </div>
