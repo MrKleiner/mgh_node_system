@@ -5,15 +5,16 @@ var super_date = "nan_ERROR";
 
 
 // Fuck js. This is needed for preset system to work correctly. Use this for storing any temp element selections when reading templates
-var preset_reader_fuck_js_current_element = "nan";
+var preset_reader_fuck_js_current_element = "nan_preset_fuck";
 
 
-
-var current_link_edited_element = "nan";
-
+var current_link_edited_element = "nan_linked_elem";
 
 
+var hitman_mode = false;
 
+
+var node_hitman_mode = false;
 
 
 
@@ -40,7 +41,13 @@ function event_rehandlers()
   
   content_editor_input_ux()
   
-  content_link_editor_activator()
+  // content_link_editor_activator()
+  
+  credentials_val_setter()
+  storage_left_editor_activator()
+  input_enters()
+  // super_node_hitman()
+  super_commit_self_die()
   
   
 }
@@ -82,6 +89,9 @@ function super_dater()
 function unbind_all()
 {
   $(".super_node *").unbind();
+  
+  $("#global_super_link_editor *").unbind();
+  
 }
 
 
@@ -122,7 +132,7 @@ function space_left_color_indicator()
 
       var get_sibling = $(this).siblings('.node_space_left_num');
     
-      var get_number = $(get_sibling).find(".node_space_left_super_num").text();
+      var get_number = $(get_sibling).find(".node_space_left_super_num").val();
    //   var ourval = $(this).text();
 
       var super_math = ((( get_number - oldmin ) * newmax ) / oldmax ) + 0;
@@ -248,7 +258,8 @@ function super_date_editor()
     if (event.shiftKey)
     {
      // $(this).text(super_date);
-        this.value=super_date;
+        $(this).val(super_date);
+		$(this).attr('value', super_date);
    //   $(this).remove();
         clearSelection();
     }
@@ -279,12 +290,17 @@ function super_date_tweaker()
 	// ==================================================================================
 	// This is needed for disabling the date editing when you finish manual date tweaking
 	// ==================================================================================
+ 
+  
+  
   
 	$( ".super_node_content_date" ) .focusout(function() {
 		focus++;
 		$(this).prop('readonly',true);
+		 var thiser = $(this).val();
 		$(this).attr('onselect', "clearSelection()");
 		$(this).css('cursor', "default");
+		$(this).attr('value', thiser);
 	  })
   
 }
@@ -339,7 +355,7 @@ function super_content_row_adder()
     
 	window.preset_reader_fuck_js_current_element = $(this);
 	
-	let template_path = "/templates/super_row_template.mght"
+	let template_path = "/templates/super_row_template3.mght"
 	
 	
 	
@@ -379,8 +395,10 @@ function super_row_adder_trigger_date()
 {
 	$(".row_temp_date_tgt").prop('readonly',false);
 	$(".row_temp_date_tgt").val(super_date);
+	$(".row_temp_date_tgt").attr('value', super_date);
 	$(".row_temp_date_tgt").prop('readonly',true);
 	$(".row_temp_date_tgt").removeClass("row_temp_date_tgt");
+	
 }
 
 
@@ -413,7 +431,7 @@ function super_node_spawner()
 	console.log("weve got hostiles");
 	// window.preset_reader_fuck_js_current_element = $(this).closest(".super_node");
 	
-	let template_path = "/templates/super_node_template.mght"
+	let template_path = "/templates/super_node_template2.mght"
 	
 	
 	
@@ -464,7 +482,7 @@ function super_node_spawner()
 	console.log("weve got hostiles");
 	// window.preset_reader_fuck_js_current_element = $(this).closest(".super_node");
 	
-	let template_path = "/templates/super_node_template.mght"
+	let template_path = "/templates/super_node_template2.mght"
 	
 	
 	
@@ -525,7 +543,7 @@ function super_row_text_editor()
 	
 	
 
-    if (event.altKey)
+    if (event.shiftKey)
     {
 		this.select()
         // this.value=super_date;
@@ -552,6 +570,29 @@ function super_row_text_editor()
 	  $(this).css('cursor', "text");
 
     }
+	
+	
+    if (event.altKey)
+    {
+	
+		if (hitman_mode)
+		{
+			// $(this).closest(".super_node_content_row").remove();
+			$(this).closest(".super_node_content_row").addClass("global_trash_to_flush");
+			$(this).closest(".super_node_content_row").addClass("class_hidden");
+			
+		}else{
+			console.log("aint no deleting that shit");
+		}
+	
+	
+	}
+	
+	
+	
+	
+	
+	
     
   });
   
@@ -569,6 +610,8 @@ function super_row_text_tweaker()
 	$( ".super_node_content_text" ).focusout(function() {
 		focus++;
 		$(this).prop('readonly',true);
+		var thiser = $(this).val();
+		$(this).attr('value', thiser);
 		// $(this).css('cursor', "default");
 	  })
   
@@ -581,44 +624,95 @@ function super_row_text_tweaker()
 
 function super_row_content_link_editor_activator()
 {
-	$(".super_node_content_copy_link").click(function(){
+	$(".super_node_content_copy_link").click(function(e){
 		
+		// $(document).height();
+		var global_page_width = $(document).width();
+		
+		var global_cursor_location = e.pageX;
+		
+		if ((global_page_width - global_cursor_location) < 300)
+		{
+			var new_link_editor_x = global_cursor_location - 300;
+			
+			$("#global_super_link_editor")
+				.css({
+					left: new_link_editor_x,
+					top: e.pageY,
+				})
+			
+		}else{
+		
+		console.log(global_cursor_location);
+		
+		$("#global_super_link_editor")
+			.css({
+				left: e.pageX,
+				top: e.pageY,
+			})
+		
+		}
 		
 		if (event.shiftKey)
 		{
-			$(this).find(".content_link_editor").removeClass("class_hidden");
-			$(this).find(".content_link_editor").click(false);
+			var grab_link_for_input = $(this).attr('mgh_link_btn_data')
+			
+			
+			
+			$("#global_super_link_editor").find(".content_link_editor_input").val(grab_link_for_input);
+			$("#global_super_link_editor").removeClass("class_hidden");
+			$("#global_super_link_editor").click(false);
 			$(this).removeClass("standard_btn_1");
-
+			
+			
+			
+			
+			window.current_link_edited_element = $(this)
+			
+			$(".super_node_content_copy_link").css('pointer-events', 'none');
+			
 		}else{
 			  
 			  
 			  if ($(this).attr('mgh_link_btn_valid') > 0)
 			  {
 				  console.log("goooood")
-				  var what_to_copy = $(this).find(".content_link_editor_input");
-				  // console.log(what_to_copy.text())
+				  
+				  var what_to_copy = $(this).attr("mgh_link_btn_data");
+				  // console.log(what_to_copy)
 				  var $temp = $("<input>");
 				  $("body").append($temp);
-				  $temp.val($(what_to_copy).val()).select();
+				  $temp.val(what_to_copy).select();
 				  document.execCommand("copy");
 				  $temp.remove(); 
 				  
+				  
 			  }else{
 				  console.log("link_invalid")
-			  }
-			 
-			  
-
-			  
-		}
-		
-		
-		
-		
-		
+			  }  
+		}	
 		
 	});
+	
+
+	/*
+	$(".super_node_content_copy_link").click(function(e){
+
+		window.current_link_edited_element = $(this)
+
+		$("#global_super_link_editor")
+			.css({
+				// position: 'absolute',
+				left: e.pageX,
+				top: e.pageY,
+				// display: 'block'
+			})
+			// .hide('explode', { pieces: 150 }, 700);
+	});
+	*/
+	
+	
+	
 
 }
 
@@ -633,28 +727,44 @@ function super_row_content_link_editor_deactivator()
 		var current_container = $(this).closest(".content_link_editor");
 		var grab_val = $(current_container).find(".content_link_editor_input").val();
 		
-		var link_button = $(this).closest(".super_node_content_copy_link")
+		// var link_button = $(this).closest(".super_node_content_copy_link")
+		
+		
+		// set link to datablock
+		$(current_link_edited_element).attr('mgh_link_btn_data', grab_val)
+		
+		
+
+		
 		
 		$(this).closest(".content_link_editor").addClass("class_hidden");
-		$(this).closest(".super_node_content_copy_link").addClass("standard_btn_1");
+		$(current_link_edited_element).addClass("standard_btn_1");
+		
 		
 		
 		if (grab_val.includes("https://mega"))
 		{
-			$(link_button).css('background-position', '-63px -71.5px');
-			$(link_button).attr('mgh_link_btn_valid', '1')
+			$(current_link_edited_element).css('background-position', '-63px -71.5px');
+			$(current_link_edited_element).attr('mgh_link_btn_valid', '1')
 		}else{
-			$(link_button).css('background-position', '-93px -802.5px');
-			$(link_button).attr('mgh_link_btn_valid', '0')
+			$(current_link_edited_element).css('background-position', '-93px -802.5px');
+			$(current_link_edited_element).attr('mgh_link_btn_valid', '0')
 		}
 		
 		// background-position: -93px -802.5px;
 		
+		
+		// reset editor input 
+		$(current_container).find(".content_link_editor_input").val('');
+		
+		$(".super_node_content_copy_link").css('pointer-events', 'auto');
+		
 	});
 	
-	
-	
+
 }
+
+
 
 
 
@@ -678,26 +788,316 @@ function content_editor_input_ux()
 
 
 
-/*
 
-function content_link_editor_activator()
+
+
+
+
+
+
+function save_rip()
 {
-	$(".super_node_content_copy_link").click(function(e){
+	
 
-		window.current_link_edited_element = $(this)
+	
+	
+	console.log("svae rrr sss")
 
-		$("#global_super_link_editor")
-			.css({
-				// position: 'absolute',
-				left: e.pageX,
-				top: e.pageY,
-				// display: 'block'
-			})
-			// .hide('explode', { pieces: 150 }, 700);
-	});
+	// var super_canvas_grab = $("#super_canvas");
+
+	var elHtml = document.querySelector(".super_canvas").innerHTML;
+	
+	// console.log(elHtml)
+	
+	let cgi_script = "cgi-bin/hello.py"
+	
+
+		var blob = new Blob([elHtml], {type: 'text/plain'});
+		var cgi_request = new XMLHttpRequest();
+		cgi_request.open('POST', cgi_script, true);
+		cgi_request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+		
+		cgi_request.responseType = 'text';
+		
+		cgi_request.onreadystatechange = function() {
+		
+		  
+		  
+			if(cgi_request.readyState == 4 ) {
+				console.log(cgi_request.responseText)
+				if (cgi_request.responseText.trim() == "saved_succesfully")
+				{	
+					$(".save_indicator").css('background', 'green');
+					console.log("WE GOT OKK RESPONSE")
+				}else{
+					$(".save_indicator").css('background', 'red');
+					console.log("Somethings wrong I can feel it")
+				}
+				
+			}
+		  
+		  
+		}
+		cgi_request.send(blob);
+	
+	
+
+}
+
+
+function super_commit_self_die()
+{
+	
+  $(".super_exit_application").click(function(){
+	// console.log("svae rrr sss")
+
+	// var super_canvas_grab = $("#super_canvas");
+
+	// var elHtml = document.querySelector(".content_link_editor").innerHTML;
+	
+	// console.log(elHtml)
+	
+	let cgi_script = "cgi-bin/exit.py"
+	
+
+		var blob = new Blob(["asdasdasd"], {type: 'text/plain'});
+		var cgi_request = new XMLHttpRequest();
+		cgi_request.open('POST', cgi_script, true);
+		cgi_request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+		
+		cgi_request.responseType = 'text';
+		
+		cgi_request.onreadystatechange = function() {
+		
+		  
+		  
+			if(cgi_request.readyState == 4 ) {
+				// console.log(cgi_request.responseText)
+				
+			}
+		  
+		  
+		}
+		cgi_request.send(blob);
+	
+	
+	
+	  });
+	  
+	  // Window.close()
 	
 }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+$(document).ready(function(){
+  $(".super_util_del_rows").click(function(){
+
+		window.hitman_mode ^= true;
+		
+  });
+});
+
+
+
+document.addEventListener ("keydown", function (zEvent) {
+    if ( zEvent.shiftKey  &&  zEvent.keyCode == 69) {  // case sensitive
+        // DO YOUR STUFF HERE
+		window.hitman_mode ^= true;
+    }
+} );
+
+
+
+$(document).ready(function(){
+  $(".flush_trash_bin").click(function(){
+	  
+	  $(".global_trash_to_flush").remove();
+	  
+  });
+});
+
+
+
+
+
+document.addEventListener ("keydown", function (zEvent) {
+    if ( zEvent.shiftKey  &&  zEvent.keyCode == 83) {
+
+		 save_rip()
+		 
+		 $(".save_indicator").css('background', 'cyan');
+    }
+} );
+
+
+
+
+
+
+
+
+
+	// ==================================================================================
+	// Load last save on page load
+	// ==================================================================================
+
+/*
+$(document).ready(function(){
+	
+	
+	
+	let save_path = "database_last_save.mghdbase"
+	
+	
+	
+		var client = new XMLHttpRequest();
+		client.open('GET', save_path);
+		client.onreadystatechange = function() {
+		  // window.temp_template_storage = client.responseText
+		  
+			if(client.readyState == 4 ) {
+				// $(preset_reader_fuck_js_current_element).before(client.responseText);
+				// event_rehandlers()
+				// super_row_adder_trigger_date()
+				
+				document.querySelector(".super_canvas").innerHTML = client.responseText;
+				
+			}
+		  
+		  
+		}
+		client.send();
+		
+	
+});
 */
 
+
+function credentials_val_setter()
+{
+	
+	
+	$( ".super_node_creds_input" ).focusout(function() {
+		focus++;
+		// $(this).prop('readonly',true);
+		var thiser = $(this).val();
+		$(this).attr('value', thiser);
+		// $(this).css('cursor', "default");
+	  })
+	
+	
+	
+	
+}
+
+
+
+function storage_left_editor_activator()
+{
+  $(".super_node_storage_btn").click(function(){
+	  // $(this).select();
+	  
+	  
+		if (node_hitman_mode)
+		{
+			if (event.altKey)
+			{
+				$(this).closest(".super_node").addClass("global_trash_to_flush");
+				$(this).closest(".super_node").addClass("class_hidden");
+			}
+		}
+	  
+	  
+	  
+	  
+	  let current_node = $(this).closest(".super_node");
+	  
+	  let current_node_storage_status = $(current_node).find(".node_space_left_super_num");
+	  
+	  $(current_node_storage_status).css('pointer-events', 'auto');
+	  $(current_node_storage_status).css('user-select', 'auto');
+	  
+	  $(current_node_storage_status).prop('readonly',false);
+	  
+	  $(current_node_storage_status).select();
+	  
+  });
+  
+  
+  
+  
+	$( ".node_space_left_super_num" ).focusout(function() {
+		focus++;
+		$(this).prop('readonly',true);
+		var thiser = $(this).val();
+		$(this).attr('value', thiser);
+		$(this).css('pointer-events', 'none');
+		$(this).css('user-select', 'none');
+		space_left_color_indicator()
+	  })
+  
+  
+  
+  
+  
+}
+
+
+
+
+function input_enters()
+{
+	
+	
+    $(".super_node").on("keypress", "input", function(e){
+        if(e.which == 13){
+            // var inputVal = $(this).val();
+            // alert("You've entered: " + inputVal);
+			$(this).blur();
+			clearSelection()
+        }
+    });
+	
+	
+}
+
+
+/*
+function super_node_hitman()
+{
+	
+	$(".super_node_storage_btn").click(function(){
+		
+		if (node_hitman_mode)
+		{
+			
+			$(this).closest(".super_node").addClass("global_trash_to_flush");
+			$(this).closest(".super_node").addClass("class_hidden");
+
+		}
+		  
+	});
+	
+}
+*/
+
+
+$(document).ready(function(){
+  $(".super_util_del_nodes").click(function(){
+
+		window.node_hitman_mode ^= true;
+		
+  });
+});

@@ -6,17 +6,29 @@
   <link rel="stylesheet" href="./style.css">
 
 </head>
-<body>
+
 
 <body onload="event_rehandlers()">
-  <div class="natural_disasters"></div>
+  <div class="natural_disasters">
+    <div class="super_node_creds_copy standard_btn_1 flush_trash_bin">Flush</div>
+	<div class="super_node_creds_copy standard_btn_1 super_util_del_rows">Hitman</div>
+	<div class="super_node_creds_copy standard_btn_1 super_util_del_nodes">Node Hitman</div>
+	<div class="super_node_creds_copy standard_btn_1 save_indicator"> &nbsp &nbsp </div>
+	<div id="super_unique_but" onclick="save_rip()" class="super_node_creds_copy standard_btn_1">Save Rip</div>
+	<div class="super_node_creds_copy standard_btn_1 super_exit_application">Exit</div>
+	<!-- <a href="#" onclick="close_window();return false;">close</a> -->
+	<!-- <input type="button" value="Close this window" onclick="self.close()"> -->
+	<!-- <button  style="background: black">Save Rip</button> -->
+  </div>
+  
+  
   <div class="super_canvas">
 
     <div class="nodes_main_container">
 
 
 
-	 <div id="global_super_link_editor" class="content_link_editor">
+	 <div id="global_super_link_editor" class="content_link_editor class_hidden">
 		<div class="content_link_editor_btns">OK</div>
 		<div class="content_link_editor_input_container">
 			<input class="content_link_editor_input" value=""></input>
@@ -41,6 +53,8 @@
                 <div class="super_node_creds_copy standard_btn_1">Copy</div>
                 <div class="super_node_creds_edit standard_btn_1">Edit</div>
                 <div class="super_node_creds_copy standard_btn_1 node_bkey_btn">Bkey</div>
+				<div class="super_node_storage_btn standard_btn_1">Storage</div>
+				  
               </div>
 
                <div class="super_node_creds_text">
@@ -86,7 +100,7 @@
           </div>
           
           <div class="super_node_space_left">
-            <div class="node_space_left_num"><a class="node_space_left_super_num">15</a> GB</div>
+            <div class="node_space_left_num"><input class="node_space_left_super_num" value="15" readonly="1"></input><a>GB</a></div>
             <div class="node_space_left_ind"></div>
           </div>
           
@@ -96,24 +110,8 @@
               <div class="super_node_content_row_container">
                 <input readonly="1" class="super_node_content_text" value="Flying Spaghetti Monster"></input>
                 <div class="super_node_content_util">
-                   <div mgh_link_btn_valid="0" class="super_node_content_copy_link standard_btn_1"><!-- &nbsp -->
-				   
-						 <div class="content_link_editor class_hidden">
-						 
-							<div class="content_link_editor_btns">
-							OK
-								<!-- <div class="content_link_editor_btn_apply"></div> -->
-							</div>
-							<div class="content_link_editor_input_container">
-								<input class="content_link_editor_input" value=""></input>
-							</div>
-						 
-						 </div>
-				   
-
-				   
-					 </div> 
-                   <input onselect="clearSelection()" class="super_node_content_date standard_btn_1" readonly="1" value="00/04/2021"></input>
+                   <div mgh_link_btn_data="" mgh_link_btn_valid="0" class="super_node_content_copy_link standard_btn_1"></div> 
+                   <input onselect="clearSelection()" class="super_node_content_date standard_btn_1" readonly="1" value="18/05/2001"></input>
                 </div>
               </div>
             </div>
@@ -132,10 +130,10 @@
     </div>
       
   </div>
-  
+  </div>
 </body>
 
   <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js'></script><script  src="./script.js"></script>
 
-</body>
+
 </html>

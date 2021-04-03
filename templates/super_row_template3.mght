@@ -1,0 +1,9 @@
+            <div class="super_node_content_row">
+              <div class="super_node_content_row_container">
+                <input readonly="1" class="super_node_content_text" value="Flying Spaghetti Monster"></input>
+                <div class="super_node_content_util">
+                   <div mgh_link_btn_data="" mgh_link_btn_valid="0" class="super_node_content_copy_link standard_btn_1"></div> 
+                   <input onselect="clearSelection()" class="super_node_content_date standard_btn_1 row_temp_date_tgt" readonly="1" value="18/05/2001"></input>
+                </div>
+              </div>
+            </div>

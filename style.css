@@ -9,7 +9,27 @@
     src: url("fonts/droidsans.ttf");
 }
 
+.super_node_storage_btn
+{
+	all: unset;
+	width: 12%;
+	cursor: default;
+	margin-left: 15% !important;
+}
 
+
+
+.node_space_left_super_num
+{
+	all: unset;
+	width: 90%;
+	text-align: right;
+	padding-right: 3px;
+	/* font-size: 15px; */
+	cursor: default;
+	user-select: none;
+	pointer-events: none;
+}
 
 
 
@@ -18,8 +38,9 @@
   padding: 0px;
   margin: 0px;
   font-family: 'blender', sans-serif;
-  font-size: 10px;
+  font-size: 11px;
   text-shadow: 0px 1px 2px #262626;
+  color: white;
 }
 
 .super_node_content_date
@@ -121,7 +142,7 @@ p
   display: flex;
 }
 
-.super_node_creds_copy, .super_node_creds_edit
+.super_node_creds_copy, .super_node_creds_edit, .super_node_storage_btn
 {
   display: flex;
   padding: 5px 9px 5px 9px;
@@ -185,6 +206,7 @@ p
   width: 100%;
   justify-content: center;
   align-items: center;
+  user-select: none;
 }
 
 .node_space_left_ind
@@ -197,7 +219,16 @@ p
 
 .node_space_left_num
 {
-  padding: 10px;
+	padding: 10px;
+	display: flex;
+	width: 18%;
+	align-items: center;
+	
+}
+
+.node_space_left_num *
+{
+	font-size: 15px;
 }
 
 .super_node_ctrl_row
@@ -316,7 +347,7 @@ p
 .super_node_add_content_row_btn
 {
   display: flex;
-  padding: 2px 30px 2px 30px;
+  padding: 5px 30px 5px 30px;
   margin: 40px 50px 0px 50px;
   justify-content: center;
   align-items: center;
@@ -369,6 +400,7 @@ p
 	justify-content: center;
 	align-items: center;
 	border: 1px solid #3f3f3f;
+	user-select: none;
 	
 }
 
