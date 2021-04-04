@@ -10,12 +10,18 @@
 
 <body onload="event_rehandlers()">
   <div class="natural_disasters">
-    <div class="super_node_creds_copy standard_btn_1 flush_trash_bin">Flush</div>
-	<div class="super_node_creds_copy standard_btn_1 super_util_del_rows">Hitman</div>
-	<div class="super_node_creds_copy standard_btn_1 super_util_del_nodes">Node Hitman</div>
-	<div class="super_node_creds_copy standard_btn_1 save_indicator"> &nbsp &nbsp </div>
-	<div id="super_unique_but" onclick="save_rip()" class="super_node_creds_copy standard_btn_1">Save Rip</div>
-	<div class="super_node_creds_copy standard_btn_1 super_exit_application">Exit</div>
+	<div class="natural_disaster_block">
+		<div class="super_util_del_rows">Hitman</div>
+		<div class="super_util_del_nodes">Node Hitman</div>
+		<div class="super_node_pos_edit_status">Pos edit: false</div>
+	</div>
+	<div class="natural_disaster_block">
+		<div class="super_node_creds_copy standard_btn_1 flush_trash_bin">Flush</div>
+		<div id="super_unique_but" onclick="save_rip()" class="super_node_creds_copy standard_btn_1">Save Rip</div>
+		<div class="super_node_creds_copy standard_btn_1 save_indicator"> &nbsp &nbsp </div>
+		<div class="super_node_creds_copy standard_btn_1 super_exit_application">Quit</div>
+	</div>
+	
 	<!-- <a href="#" onclick="close_window();return false;">close</a> -->
 	<!-- <input type="button" value="Close this window" onclick="self.close()"> -->
 	<!-- <button  style="background: black">Save Rip</button> -->
@@ -40,11 +46,11 @@
 
 
 
-      <div class="super_node">
+      <div class="super_node" mgh_node_number="node_num_is_null">
         <div class="super_node_inner_container">
           
           <div class="super_node_label">
-            <p class="super_node_label_text">ded</p>
+            <input class="super_node_label_text" value="Node Label" readonly="1"></input>
           </div>
           
           <div class="super_node_creds_block">
@@ -91,7 +97,7 @@
             <div class="super_node_ctrl_move_l"></div>
             </div>
             
-            <div class="super_node_ctrl_move standard_btn_1">To</div>
+            <div class="super_node_ctrl_move super_node_ctrl_move_to standard_btn_1">To</div>
             
             <div class="super_node_ctrl_move standard_btn_1 super_node_ctrl_move_r_btn">
               <div class="super_node_ctrl_move_r"></div>

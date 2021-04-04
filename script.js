@@ -20,6 +20,29 @@ var node_hitman_mode = false;
 
 
 
+// 
+//
+//	Super Mover var block
+//
+//
+
+
+var current_node_to_move = "current_node_is_nan_too_bad";
+
+var super_node_move_mode = false;
+
+
+
+
+
+
+
+
+
+
+
+
+
 // Super important shit. Retrigger all possible handlers
 function event_rehandlers()
 {
@@ -48,6 +71,9 @@ function event_rehandlers()
   input_enters()
   // super_node_hitman()
   super_commit_self_die()
+  super_node_label_editor_activator()
+  
+  super_node_mover()
   
   
 }
@@ -164,17 +190,54 @@ function super_lawn_mover()
     if (event.shiftKey)
     {
 		
-		window.preset_reader_fuck_js_current_element = $(this).closest(".super_node");
-		super_node_spawner()
-		clearSelection()
 		
+		if (super_node_move_mode)
+		{
+			
+		}else{
+		
+			window.preset_reader_fuck_js_current_element = $(this).closest(".super_node");
+			super_node_spawner()
+			clearSelection()
+		}
+
+
+
 
     }else{
-		var elm = $(this).closest(".super_node");
 		
-		elm.insertAfter(elm.next());
+		if (super_node_move_mode)
+		{
+			// current_node_to_move
+			
+			
+			var current_super_node = $(this).closest(".super_node");
+			
+			
+			$(current_super_node).after(current_node_to_move);
+			
+			window.super_node_move_mode = false;
+			$(".super_node_pos_edit_status").removeClass("btn_blue_active_bg");
+			$(".super_node_pos_edit_status").text("Pos edit: false")
+			console.log("are we even here")
+			
+		}else{
+			
+			
+			var elm = $(this).closest(".super_node");
+			
+			elm.insertAfter(elm.next());
+			
+			super_node_indexer()
+			
+			
+			
+			
+		}
 		
-		super_node_indexer()
+		
+		
+
 	}
 	
 	
@@ -207,16 +270,46 @@ function super_lawn_mover()
     
     if (event.shiftKey)
     {
-		window.preset_reader_fuck_js_current_element = $(this).closest(".super_node");
-		super_node_spawner_l()
+		
+		
+		if (super_node_move_mode)
+		{
+			
+		}else{
+			
+			window.preset_reader_fuck_js_current_element = $(this).closest(".super_node");
+			super_node_spawner_l()
+		}
 		
 
     }else{
-		var elm = $(this).closest(".super_node");
 		
-		elm.insertBefore(elm.prev());
 		
-		super_node_indexer()
+		
+		if (super_node_move_mode)
+		{
+			// current_node_to_move
+			
+			
+			var current_super_node = $(this).closest(".super_node");
+			
+			
+			$(current_super_node).before(current_node_to_move);
+			
+			window.super_node_move_mode = false;
+			$(".super_node_pos_edit_status").removeClass("btn_blue_active_bg");
+			$(".super_node_pos_edit_status").text("Pos edit: false")
+			console.log("are we even here")
+			
+		}else{
+		
+			var elm = $(this).closest(".super_node");
+			
+			elm.insertBefore(elm.prev());
+			
+			super_node_indexer()
+		
+		}
 	}
     
 
@@ -239,8 +332,10 @@ function super_node_indexer()
 	
 	
     $(".super_node").each(function(i) {
-        i = '0000' + (i + 1);
-        $(this).find(".super_node_label_text").text(i.substr(i.length - 4));
+        i = (i + 1);
+        // $(this).find(".super_node_label_text").text(i.substr(i.length - 4));
+		 // $(this).attr('mgh_node_number', i.substr(i.length - 4));
+		 $(this).attr('mgh_node_number', i);
     });
   
 }
@@ -431,7 +526,7 @@ function super_node_spawner()
 	console.log("weve got hostiles");
 	// window.preset_reader_fuck_js_current_element = $(this).closest(".super_node");
 	
-	let template_path = "/templates/super_node_template2.mght"
+	let template_path = "/templates/super_node_template5.mght"
 	
 	
 	
@@ -482,7 +577,7 @@ function super_node_spawner()
 	console.log("weve got hostiles");
 	// window.preset_reader_fuck_js_current_element = $(this).closest(".super_node");
 	
-	let template_path = "/templates/super_node_template2.mght"
+	let template_path = "/templates/super_node_template5.mght"
 	
 	
 	
@@ -604,7 +699,7 @@ function super_row_text_tweaker()
 {
 	
 	// ==================================================================================
-	// This is needed for disabling the date editing when you finish manual date tweaking
+	// This is needed for disabling the date editing when you finish row text tweaking
 	// ==================================================================================
   
 	$( ".super_node_content_text" ).focusout(function() {
@@ -655,21 +750,50 @@ function super_row_content_link_editor_activator()
 		
 		if (event.shiftKey)
 		{
-			var grab_link_for_input = $(this).attr('mgh_link_btn_data')
+			
+			if ($(this).attr('mgh_link_btn_valid') > 0)
+			{
+				if ($(this).attr('mgh_link_btn_valid').length < 5)
+				{
+					
+				
+				var grab_link_for_input = $(this).attr('mgh_link_btn_data')
+				
+				
+				$("#global_super_link_editor").find(".content_link_editor_input").val(grab_link_for_input);
+				$("#global_super_link_editor").removeClass("class_hidden");
+				$("#global_super_link_editor").click(false);
+				$(this).removeClass("standard_btn_1");
+				
+
+				window.current_link_edited_element = $(this)
+				
+				$(".super_node_content_copy_link").css('pointer-events', 'none');
+				}else{}
+				
+			}else{
+				
+				
+				var grab_link_for_input = $(this).attr('mgh_link_btn_data')
+				
+				
+				$("#global_super_link_editor").find(".content_link_editor_input").val(grab_link_for_input);
+				$("#global_super_link_editor").removeClass("class_hidden");
+				$("#global_super_link_editor").click(false);
+				$("#global_super_link_editor").find(".content_link_editor_input").select();
+				$(this).removeClass("standard_btn_1");
+				
+
+				window.current_link_edited_element = $(this)
+				
+				$(".super_node_content_copy_link").css('pointer-events', 'none');
+				
+				
+			}
 			
 			
 			
-			$("#global_super_link_editor").find(".content_link_editor_input").val(grab_link_for_input);
-			$("#global_super_link_editor").removeClass("class_hidden");
-			$("#global_super_link_editor").click(false);
-			$(this).removeClass("standard_btn_1");
-			
-			
-			
-			
-			window.current_link_edited_element = $(this)
-			
-			$(".super_node_content_copy_link").css('pointer-events', 'none');
+
 			
 		}else{
 			  
@@ -845,12 +969,14 @@ function save_rip()
 }
 
 
+
+
 function super_commit_self_die()
 {
 	
   $(".super_exit_application").click(function(){
 	// console.log("svae rrr sss")
-
+	// super_tab_closer()
 	// var super_canvas_grab = $("#super_canvas");
 
 	// var elHtml = document.querySelector(".content_link_editor").innerHTML;
@@ -860,7 +986,7 @@ function super_commit_self_die()
 	let cgi_script = "cgi-bin/exit.py"
 	
 
-		var blob = new Blob(["asdasdasd"], {type: 'text/plain'});
+		var blob = new Blob(["three_letters"], {type: 'text/plain'});
 		var cgi_request = new XMLHttpRequest();
 		cgi_request.open('POST', cgi_script, true);
 		cgi_request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
@@ -872,7 +998,15 @@ function super_commit_self_die()
 		  
 		  
 			if(cgi_request.readyState == 4 ) {
-				// console.log(cgi_request.responseText)
+				console.log(cgi_request.responseText)
+				if (cgi_request.responseText.includes("killme_no_later"))
+				{
+					// $(".save_indicator").css('background', 'green');
+					console.log("Kill the RED spy");
+				}else{
+					// $(".save_indicator").css('background', 'red');
+					console.log("There was no killme response from server");
+				}
 				
 			}
 		  
@@ -885,6 +1019,7 @@ function super_commit_self_die()
 	  });
 	  
 	  // Window.close()
+	  // self.close()
 	
 }
 
@@ -906,6 +1041,8 @@ $(document).ready(function(){
 
 		window.hitman_mode ^= true;
 		
+		$(".super_util_del_rows").toggleClass("btn_blue_active_bg");
+		
   });
 });
 
@@ -915,6 +1052,7 @@ document.addEventListener ("keydown", function (zEvent) {
     if ( zEvent.shiftKey  &&  zEvent.keyCode == 69) {  // case sensitive
         // DO YOUR STUFF HERE
 		window.hitman_mode ^= true;
+		$(".super_util_del_rows").toggleClass("btn_blue_active_bg");
     }
 } );
 
@@ -933,7 +1071,7 @@ $(document).ready(function(){
 
 
 document.addEventListener ("keydown", function (zEvent) {
-    if ( zEvent.shiftKey  &&  zEvent.keyCode == 83) {
+    if ( /* zEvent.shiftKey && */ zEvent.altKey &&  zEvent.keyCode == 83) {
 
 		 save_rip()
 		 
@@ -953,7 +1091,7 @@ document.addEventListener ("keydown", function (zEvent) {
 	// Load last save on page load
 	// ==================================================================================
 
-/*
+
 $(document).ready(function(){
 	
 	
@@ -982,14 +1120,14 @@ $(document).ready(function(){
 		
 	
 });
-*/
+
 
 
 function credentials_val_setter()
 {
 	
 	
-	$( ".super_node_creds_input" ).focusout(function() {
+	$( ".super_node input" ).focusout(function() {
 		focus++;
 		// $(this).prop('readonly',true);
 		var thiser = $(this).val();
@@ -1065,6 +1203,8 @@ function input_enters()
         if(e.which == 13){
             // var inputVal = $(this).val();
             // alert("You've entered: " + inputVal);
+			var thiser = $(this).val();
+			$(this).attr('value', thiser);
 			$(this).blur();
 			clearSelection()
         }
@@ -1095,9 +1235,110 @@ function super_node_hitman()
 
 
 $(document).ready(function(){
+	
   $(".super_util_del_nodes").click(function(){
 
 		window.node_hitman_mode ^= true;
-		
+		$(".super_util_del_nodes").toggleClass("btn_blue_active_bg");
   });
+  
+  
+  
+	document.addEventListener ("keydown", function (zEvent) {
+		if ( zEvent.altKey  &&  zEvent.keyCode == 87) {  // case sensitive
+			// DO YOUR STUFF HERE
+			window.node_hitman_mode ^= true;
+			$(".super_util_del_nodes").toggleClass("btn_blue_active_bg");
+		}
+	});
+  
+  
+  
 });
+
+
+
+function super_node_label_editor_activator()
+{
+	
+	
+	
+  $(".super_node_label_text").click(function(){
+    
+    if (event.shiftKey)
+    {
+		this.select()
+      $(this).prop('readonly',false);
+      $(this).attr('onselect', "dummy()");
+	  $(this).css('cursor', "text");
+    }
+	
+    if (event.ctrlKey)
+    {
+      $(this).prop('readonly',false);
+      $(this).attr('onselect', "dummy()");
+	  $(this).css('cursor', "text");
+    }
+  });
+	
+	
+	
+	
+	$( ".super_node_label_text" ).focusout(function() {
+		focus++;
+		$(this).prop('readonly',true);
+		// var thiser = $(this).val();
+		// $(this).attr('value', thiser);
+		$(this).css('cursor', "default");
+	  })
+	
+	
+	
+}
+
+
+
+
+
+
+
+
+
+function super_node_mover()
+{
+	
+	$(".super_node .super_node_ctrl_move_to").click(function(){
+
+		
+		 if (event.altKey)
+		 {
+			window.super_node_move_mode = false;
+			$(".super_node_pos_edit_status").text("Pos edit: false")
+			$(".super_node_pos_edit_status").removeClass("btn_blue_active_bg");
+			
+			
+		 }else{
+				 
+			window.super_node_move_mode = true;
+			$(".super_node_pos_edit_status").text("Pos edit: true")
+			window.current_node_to_move = $(this).closest(".super_node");
+			$(".super_node_pos_edit_status").addClass("btn_blue_active_bg");
+			 
+		 }
+
+
+		
+
+	});
+	
+	
+	$(".super_node_pos_edit_status").click(function(){
+		
+		window.super_node_move_mode = false;
+		$(".super_node_pos_edit_status").removeClass("btn_blue_active_bg");
+		
+	
+	});
+	
+}
+

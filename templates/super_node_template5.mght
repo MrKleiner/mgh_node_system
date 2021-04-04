@@ -1,7 +1,7 @@
-      <div class="super_node">
+      <div class="super_node" mgh_node_number="node_num_is_null">
         <div class="super_node_inner_container">
           <div class="super_node_label">
-            <p class="super_node_label_text">Node</p>
+            <input class="super_node_label_text" value="Node" readonly="1"></input>
           </div>
           <div class="super_node_creds_block">
             <div class="super_node_creds_row">
@@ -34,7 +34,7 @@
             <div class="super_node_ctrl_move standard_btn_1 super_node_ctrl_move_l_btn">
             <div class="super_node_ctrl_move_l"></div>
             </div>
-            <div class="super_node_ctrl_move standard_btn_1">To</div>
+            <div class="super_node_ctrl_move super_node_ctrl_move_to standard_btn_1">To</div>
             <div class="super_node_ctrl_move standard_btn_1 super_node_ctrl_move_r_btn">
               <div class="super_node_ctrl_move_r"></div>
             </div>

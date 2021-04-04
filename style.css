@@ -8,6 +8,66 @@
     font-family: "blender";
     src: url("fonts/droidsans.ttf");
 }
+.btn_blue_active_bg
+{
+	background: #5680c2 !important;
+}
+
+.natural_disasters
+{
+	display: flex;
+	width: 120px;
+    position: fixed;
+	flex-direction: column;
+	background: rgba(0, 0, 0, 0.1);
+	border-radius: 4px;
+
+}
+
+
+.natural_disaster_block
+{
+	display: flex;
+	flex-direction: column;
+	background: #313131;
+	border-radius: 4px;
+	border: 1px solid #373737;
+	overflow: hidden;
+}
+
+.natural_disaster_block div
+{
+	display: flex;
+	padding: 10px;
+	user-select: none;
+}
+
+.natural_disaster_block div:not(:first-child)
+{
+	border-top: 1px solid #373737;
+}
+
+.natural_disaster_block div:hover
+{
+	background: #3b3b3b;
+}
+
+.natural_disaster_block div:active
+{
+	background: #5680c2;
+}
+
+
+
+.super_node_label_text
+{
+	all: unset;
+	width: 85%;
+}
+
+
+
+
 
 .super_node_storage_btn
 {
@@ -43,6 +103,12 @@
   color: white;
 }
 
+.natural_disasters .natural_disaster_block:not(:first-child)
+{
+	margin-top: 5px;
+}
+
+
 .super_node_content_date
 {
   all: unset;
@@ -71,6 +137,7 @@
   background: #3f3f3f;
   display: flex;
   padding-bottom: 20px;
+  /* height: fit-content; */
 }
 
 .super_node_content_date *
@@ -93,13 +160,47 @@
 body
 {
   display: flex;
+  width: fit-content;
+  
+ background:
+        /* top, transparent black, faked with gradient */ 
+        linear-gradient(
+          rgba(0, 0, 0, 0), 
+          rgba(0, 0, 0, 0)
+        ),
+        /* bottom, image */
+        url("assets/super_grid.svg");
+		
+		background-size: 100px;	
+		
+		
+	padding-top: 20px;
+	padding-left: 10px;
+		
+	
 }
+  
+
 
 .super_canvas
 {
-  width: 100%;
+  width: fit-content;
  /* height: 900px; */
-  background: black;
+ 
+  /* background: url("assets/super_grid.svg"); */
+  
+  
+ background:
+        /* top, transparent black, faked with gradient */ 
+        linear-gradient(
+          rgba(0, 0, 0, 0), 
+          rgba(0, 0, 0, 0)
+        ),
+        /* bottom, image */
+        url("assets/super_grid.svg");
+		
+		background-size: 100px;	
+	
 }
 p
 {
@@ -109,12 +210,14 @@ p
 .super_canvas
 {
   display: flex;
-  overflow-x: auto;
+  /* overflow-x: auto; */
+  margin-left: 200px;
 }
 
 .nodes_main_container
 {
   display: flex;
+  width: fit-content;
 }
 
 .super_node_label
@@ -247,6 +350,7 @@ p
   display: flex;
   justify-content: center;
   align-items: center;
+  user-select: none;
   
 }
 
