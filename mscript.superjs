@@ -1,0 +1,116 @@
+function super_link_c()
+{
+  
+  
+  var what_to_copy = $(".item-link input").attr("value");
+  console.log(what_to_copy)
+  var $temp = $("<input>");
+  $("body").append($temp);
+  $temp.val(what_to_copy).select();
+  document.execCommand("copy");
+  $temp.remove(); 
+  
+}
+
+
+
+setTimeout(function(){ 
+  
+  
+   var space_left = $(".dashboard-container .storage .size-txt").text().replace(' GB', '');
+   console.log(space_left);
+  // $(".dashboard-container .storage .size-txt").css('background', 'red');
+  
+  
+  document.addEventListener ("keydown", function (zEvent) {
+      if ( zEvent.shiftKey  &&  zEvent.keyCode == 70) {
+  		 
+  		    $(".bottom-icons .account").click()
+  		    
+  		    setTimeout(function(){
+  				  console.log("goooood")
+  				  
+  				  if ($(".dashboard-container .storage .size-txt").text().includes("MB"))
+  				  {
+  				    
+    				  var what_to_copy = $(".dashboard-container .storage .size-txt").text().replace(' MB', 'lf');
+    				  // console.log(what_to_copy)
+    				  var $temp = $("<input>");
+    				  $("body").append($temp);
+    				  $temp.val(what_to_copy).select();
+    				  document.execCommand("copy");
+    				  $temp.remove(); 
+  				    
+  				    
+  				    
+  				  }else{
+
+    				  var what_to_copy = $(".dashboard-container .storage .size-txt").text().replace(' GB', 'lf');
+    				  // console.log(what_to_copy)
+    				  var $temp = $("<input>");
+    				  $("body").append($temp);
+    				  $temp.val(what_to_copy).select();
+    				  document.execCommand("copy");
+    				  $temp.remove(); 
+  				  
+  				  }
+  				  
+  		    }, 2000);
+  		    
+  		    
+  		    setTimeout(function(){ 
+  		      
+  		      $(".nw-fm-left-icons-panel .cloud-dirve").click();
+  		      
+  		    }, 3100);
+
+      }
+  } );
+  
+  $(".megaListContainer .file").contextmenu(function(){
+    
+    if (event.altKey){
+      
+      setTimeout(function(){ 
+        
+        $(".dropdown-section .getlink-item").click()
+        setTimeout(function(){ 
+          
+          super_link_c();
+          $(".fm-dialog.export-links-dialog.lato.big-radius").addClass("hidden");
+          
+        }, 100);
+        
+        
+      }, 100);
+      
+      
+    }else{
+      console.log("pootis")
+    }
+    
+  });
+  
+  
+  
+   $(".megaListContainer .file").click(function(){
+     
+     
+			if (event.altKey)
+			{
+				let what_to_copy = $(this).find(".tranfer-filetype-txt").text();
+        console.log(what_to_copy)
+        var $temp = $("<input>");
+        $("body").append($temp);
+        $temp.val(what_to_copy).select();
+        document.execCommand("copy");
+        $temp.remove(); 
+				
+			}
+			
+  
+  });
+  
+  
+  
+}, 5000);

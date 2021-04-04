@@ -77,6 +77,9 @@ function event_rehandlers()
   creds_super_copier()
   
   
+  console.log("rehandled_all_triggers");
+  
+  
 }
 
 
@@ -1025,7 +1028,10 @@ function super_commit_self_die()
 				if (cgi_request.responseText.includes("killme_no_later"))
 				{
 					// $(".save_indicator").css('background', 'green');
-					console.log("Kill the RED spy");
+					self.close();
+					// console.log("Kill the RED spy");
+					// console.log(cgi_request.responseText);
+					// console.log("lets close tab");
 				}else{
 					// $(".save_indicator").css('background', 'red');
 					console.log("There was no killme response from server");
@@ -1134,7 +1140,10 @@ $(document).ready(function(){
 				// super_row_adder_trigger_date()
 				
 				document.querySelector(".super_canvas").innerHTML = client.responseText;
-				unbind_all()
+				unbind_all();
+				
+				// setTimeout(function(){ event_rehandlers(); }, 100);
+				event_rehandlers();
 				
 			}
 		  
