@@ -74,6 +74,7 @@ function event_rehandlers()
   super_node_label_editor_activator()
   
   super_node_mover()
+  creds_super_copier()
   
   
 }
@@ -139,6 +140,26 @@ function creds_edit_toggler()
 }
 
 
+function creds_super_copier()
+{
+  $(".super_node_creds_copy_this_data").click(function(){
+    // node_creds_email
+    var current_container = this.closest(".super_node_creds_row");
+    var what_to_copy = $(current_container).find(".super_node_creds_input").val();
+	
+	
+	  // console.log(what_to_copy)
+	  var $temp = $("<input>");
+	  $("body").append($temp);
+	  $temp.val(what_to_copy).select();
+	  document.execCommand("copy");
+	  $temp.remove(); 
+	  
+    
+  });
+  
+}
+
 
 
 function space_left_color_indicator()
@@ -148,20 +169,22 @@ function space_left_color_indicator()
 	// This function refereshes all the color indicators on the page
 	// =============================================================
 	
-  var oldmax = 16;
+  var oldmax = 15;
   var oldmin = 0;
 
   var newmax = 120;
   var newmin = 0;
 
   $('.node_space_left_ind').css('background', function(){
+	  
+	  // var math_tweaks = 
 
       var get_sibling = $(this).siblings('.node_space_left_num');
     
       var get_number = $(get_sibling).find(".node_space_left_super_num").val();
    //   var ourval = $(this).text();
 
-      var super_math = ((( get_number - oldmin ) * newmax ) / oldmax ) + 0;
+      var super_math = ((( get_number - oldmin ) * newmax ) / oldmax ) + newmin;
 
       console.log(get_number);
 
@@ -197,8 +220,8 @@ function super_lawn_mover()
 		}else{
 		
 			window.preset_reader_fuck_js_current_element = $(this).closest(".super_node");
-			super_node_spawner()
-			clearSelection()
+			super_node_spawner();
+			clearSelection();
 		}
 
 
@@ -526,7 +549,7 @@ function super_node_spawner()
 	console.log("weve got hostiles");
 	// window.preset_reader_fuck_js_current_element = $(this).closest(".super_node");
 	
-	let template_path = "/templates/super_node_template5.mght"
+	let template_path = "/templates/super_node_template6.mght"
 	
 	
 	
@@ -577,7 +600,7 @@ function super_node_spawner()
 	console.log("weve got hostiles");
 	// window.preset_reader_fuck_js_current_element = $(this).closest(".super_node");
 	
-	let template_path = "/templates/super_node_template5.mght"
+	let template_path = "/templates/super_node_template6.mght"
 	
 	
 	
@@ -1111,6 +1134,7 @@ $(document).ready(function(){
 				// super_row_adder_trigger_date()
 				
 				document.querySelector(".super_canvas").innerHTML = client.responseText;
+				unbind_all()
 				
 			}
 		  
@@ -1180,7 +1204,8 @@ function storage_left_editor_activator()
 		focus++;
 		$(this).prop('readonly',true);
 		var thiser = $(this).val();
-		$(this).attr('value', thiser);
+		$(this).attr('value',thiser);
+		$(this).val(thiser);
 		$(this).css('pointer-events', 'none');
 		$(this).css('user-select', 'none');
 		space_left_color_indicator()
@@ -1209,6 +1234,92 @@ function input_enters()
 			clearSelection()
         }
     });
+	
+	
+	
+	
+	$(".node_space_left_super_num").unbind();
+	
+	
+	
+	
+    $(".node_space_left_num").on("keypress", "input", function(e){
+        if(e.which == 13){
+            // var inputVal = $(this).val();
+            // alert("You've entered: " + inputVal);
+			
+			
+			var thiser = $(this).val();
+			// console.log("if checked")
+			
+			if (thiser.includes("lf"))
+			{
+				console.log("if checked");
+				$(this).attr('value', 15 - thiser.replace("lf", ""));
+				$(this).val(15 - thiser.replace("lf", ""));
+				$(this).blur();
+				space_left_color_indicator()
+				$(this).css('pointer-events', 'none');
+				$(this).css('user-select', 'none');
+				clearSelection();
+				
+			}else{
+
+				$(this).attr('value', thiser);
+				// $(this).val(thiser.replace("lf", ""));
+				$(this).blur();
+				space_left_color_indicator();
+				$(this).css('pointer-events', 'none');
+				$(this).css('user-select', 'none');
+				clearSelection();
+
+			}
+			
+			
+			
+
+        }
+    });
+	
+	
+	
+	$( ".node_space_left_super_num" ).focusout(function() {
+		
+			var thiser = $(this).val();
+			// console.log("if checked")
+			
+			if (thiser.includes("lf"))
+			{
+				console.log("if checked");
+				$(this).attr('value', 15 - thiser.replace("lf", ""));
+				$(this).val(15 - thiser.replace("lf", ""));
+				$(this).blur();
+				space_left_color_indicator();
+				$(this).css('pointer-events', 'none');
+				$(this).css('user-select', 'none');
+				clearSelection();
+				
+			}else{
+				
+				$(this).attr('value', thiser);
+				// $(this).blur();
+				$(this).css('pointer-events', 'none');
+				$(this).css('user-select', 'none');
+				// setTimeout(function(){ clearSelection(); space_left_color_indicator(); }, 10);
+				space_left_color_indicator();
+				// console.log("oncepls");
+				clearSelection();
+
+			}
+			
+			// console.log("pls no stack shit")
+			
+			
+	  });
+	
+	
+	
+	
 	
 	
 }
