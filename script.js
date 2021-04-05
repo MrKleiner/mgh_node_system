@@ -1055,6 +1055,71 @@ function save_rip()
 
 
 
+
+
+$(document).ready(function(){
+	 
+	document.addEventListener ("keydown", function (zEvent) {
+		if ( zEvent.altKey  &&  zEvent.keyCode == 81) {  // case sensitive
+				
+				
+				console.log("quit")
+	let cgi_script = "cgi-bin/exit.py"
+	
+
+		var blob = new Blob(["three_letters"], {type: 'text/plain'});
+		var cgi_request = new XMLHttpRequest();
+		cgi_request.open('POST', cgi_script, true);
+		cgi_request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+		
+		cgi_request.responseType = 'text';
+		
+		cgi_request.onreadystatechange = function() {
+		
+		  
+		  
+			if(cgi_request.readyState == 4 ) {
+				console.log(cgi_request.responseText)
+				if (cgi_request.responseText.includes("killme_no_later"))
+				{
+					// $(".save_indicator").css('background', 'green');
+					self.close();
+					// console.log("Kill the RED spy");
+					// console.log(cgi_request.responseText);
+					// console.log("lets close tab");
+				}else{
+					// $(".save_indicator").css('background', 'red');
+					console.log("There was no killme response from server");
+				}
+				
+			}
+		  
+		  
+		}
+		cgi_request.send(blob);
+	
+				
+				
+				
+				
+				
+		}
+	});
+  
+  
+  
+});
+
+
+
+
+
+
+
+
+
+
+
 function super_commit_self_die()
 {
 	

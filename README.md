@@ -1,6 +1,7 @@
 # mgh_node_system
+(Does not require internet connection)
 To make it work:
-(Requires internet connection to work. For now)
+
 
    - Install python in any way you like. You should be able to call it from command line with "python" command.
    - Go to cgi-bin, edit "hello.py" and change the path in the first row to the python.exe on your PC. Important: Leave #! in the beginning of the path!
