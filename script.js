@@ -17,7 +17,7 @@ var hitman_mode = false;
 var node_hitman_mode = false;
 
 
-
+var cur_session_password = "password_is_null";
 
 
 // 
@@ -39,6 +39,57 @@ var super_node_move_mode = false;
 
 
 
+// get password
+$(document).ready(function(){
+// function super_password_loader()
+// {
+
+    
+	// window.preset_reader_fuck_js_current_element = $(this);
+	
+	let password_path = "personal_password.mghpas"
+	
+	
+	
+		var client = new XMLHttpRequest();
+		client.open('GET', password_path);
+		client.onreadystatechange = function() {
+		  // window.temp_template_storage = client.responseText
+		  
+			if(client.readyState == 4 ) {
+				// $(preset_reader_fuck_js_current_element).before(client.responseText);
+				// event_rehandlers()
+				// super_row_adder_trigger_date()
+				window.cur_session_password = client.responseText;
+				super_load_last_save();
+				
+			}
+		  
+		  
+		}
+		client.send();
+	
+ //   $(this.closest(".super_node_content_rows_block")).append('<p>added</p>');
+    
+// }
+
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -46,7 +97,11 @@ var super_node_move_mode = false;
 // Super important shit. Retrigger all possible handlers
 function event_rehandlers()
 {
+  // super_password_loader()
+  // load last save
+  // super_load_last_save()
   unbind_all()
+  
   creds_edit_toggler()
   space_left_color_indicator()
   super_lawn_mover()
@@ -285,7 +340,7 @@ function super_lawn_mover()
   
   
   
-  
+  console.log("move_btns_binded")
   
   
   
@@ -955,7 +1010,10 @@ function save_rip()
 
 	// var super_canvas_grab = $("#super_canvas");
 
-	var elHtml = document.querySelector(".super_canvas").innerHTML;
+	var elHtml_crypt = document.querySelector(".super_canvas").innerHTML;
+	
+	var elHtml = CryptoJS.AES.encrypt(elHtml_crypt, cur_session_password);
+	
 	
 	// console.log(elHtml)
 	
@@ -1121,9 +1179,13 @@ document.addEventListener ("keydown", function (zEvent) {
 	// ==================================================================================
 
 
-$(document).ready(function(){
+// $(document).ready(function(){
 	
+function super_load_last_save()
+{
 	
+
+	// super_password_loader()
 	
 	let save_path = "database_last_save.mghdbase"
 	
@@ -1139,7 +1201,9 @@ $(document).ready(function(){
 				// event_rehandlers()
 				// super_row_adder_trigger_date()
 				
-				document.querySelector(".super_canvas").innerHTML = client.responseText;
+				var decrypted_shit = CryptoJS.AES.decrypt(client.responseText, cur_session_password);
+				
+				document.querySelector(".super_canvas").innerHTML = decrypted_shit.toString(CryptoJS.enc.Utf8);
 				unbind_all();
 				
 				// setTimeout(function(){ event_rehandlers(); }, 100);
@@ -1151,8 +1215,10 @@ $(document).ready(function(){
 		}
 		client.send();
 		
+}
+		
 	
-});
+// });
 
 
 
