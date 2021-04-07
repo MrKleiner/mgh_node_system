@@ -134,6 +134,10 @@ function event_rehandlers()
   
   console.log("rehandled_all_triggers");
   
+  // fill checkboxes
+  
+  checkbox_activator("export_encrypted_checkbox", $("#config_storage").attr("export_encrypted"));
+  
   
 }
 
@@ -1011,9 +1015,14 @@ function save_rip()
 	// var super_canvas_grab = $("#super_canvas");
 
 	var elHtml_crypt = document.querySelector(".super_canvas").innerHTML;
-	
-	var elHtml = CryptoJS.AES.encrypt(elHtml_crypt, cur_session_password);
-	
+
+	if ($("#export_encrypted_checkbox").attr("mgh_checkbox_checked") > 0)
+	{
+		var elHtml = CryptoJS.AES.encrypt(elHtml_crypt, cur_session_password);
+	}else{
+		
+		var elHtml = elHtml_crypt;
+	}
 	
 	// console.log(elHtml)
 	
@@ -1265,10 +1274,18 @@ function super_load_last_save()
 				// $(preset_reader_fuck_js_current_element).before(client.responseText);
 				// event_rehandlers()
 				// super_row_adder_trigger_date()
+				if (client.responseText.includes("shit_is_not_encrypted"))
+				{
+
+					document.querySelector(".super_canvas").innerHTML = client.responseText;
+					
+				}else{
+					
+					var decrypted_shit = CryptoJS.AES.decrypt(client.responseText, cur_session_password);
+					document.querySelector(".super_canvas").innerHTML = decrypted_shit.toString(CryptoJS.enc.Utf8);
+					
+				}
 				
-				var decrypted_shit = CryptoJS.AES.decrypt(client.responseText, cur_session_password);
-				
-				document.querySelector(".super_canvas").innerHTML = decrypted_shit.toString(CryptoJS.enc.Utf8);
 				unbind_all();
 				
 				// setTimeout(function(){ event_rehandlers(); }, 100);
@@ -1593,3 +1610,195 @@ function super_node_mover()
 	
 }
 
+
+
+
+
+
+// function standard_checkbox_1_activate()
+// {
+$(document).ready(function(){
+	// standard_checkbox_1
+	$(".standard_checkbox_1").click(function(){
+	// .disaster_checkbox_checked_bg
+	// $(".super_util_del_nodes").toggleClass("btn_blue_active_bg");
+		var attr_check = $(this).find(".disaster_checkbox_checkmark").attr("mgh_checkbox_checked");
+		attr_check ^= true;
+		// v = 1 - v;
+		$(this).find(".disaster_checkbox_checkmark").toggleClass("class_hidden");
+		$(this).find(".disaster_checkbox").toggleClass("disaster_checkbox_checked_bg");
+		$(this).find(".disaster_checkbox_checkmark").attr("mgh_checkbox_checked", attr_check);
+	
+	});
+	
+	$(".export_encrypted_checkbox_row").click(function(){
+		$("#config_storage").attr("export_encrypted", 1 - $("#config_storage").attr("export_encrypted"));
+	});
+});
+// }
+
+
+function checkbox_activator(cbid, cstate)
+{
+	var current_cbox = $("#" + cbid).closest(".disaster_checkbox_row");
+	// var current_cbox_state = $(current_cbox).find(".disaster_checkbox_checkmark").attr("mgh_checkbox_checked");
+	if (cstate > 0)
+	{
+		$(current_cbox).find(".disaster_checkbox_checkmark").attr("mgh_checkbox_checked", "1");
+		$(current_cbox).find(".disaster_checkbox").addClass("disaster_checkbox_checked_bg");
+		$(current_cbox).find(".disaster_checkbox_checkmark").removeClass("class_hidden");
+	}
+	
+	if (cstate == 0)
+	{	
+		$(current_cbox).find(".disaster_checkbox_checkmark").attr("mgh_checkbox_checked", "0");
+		$(current_cbox).find(".disaster_checkbox").removeClass("disaster_checkbox_checked_bg");
+		$(current_cbox).find(".disaster_checkbox_checkmark").addClass("class_hidden");
+	}
+	
+	
+	
+	
+	
+}
+
+
+
+
+
+function pswd_changer()
+{
+	
+	console.log("new_pswd_write");
+
+	// var super_canvas_grab = $("#super_canvas");
+
+	// var elHtml_crypt = document.querySelector(".super_canvas").innerHTML;
+
+	// var elHtml = CryptoJS.AES.encrypt(elHtml_crypt, cur_session_password);
+	
+	var new_pswd = $(".pswd_editor_input").val();
+
+	// console.log(elHtml)
+	
+	var cgi_script = "cgi-bin/pswd_change.py"
+
+
+		var blob = new Blob([new_pswd], {type: 'text/plain'});
+		var cgi_request = new XMLHttpRequest();
+		cgi_request.open('POST', cgi_script, true);
+		cgi_request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+		
+		cgi_request.responseType = 'text';
+		
+		cgi_request.onreadystatechange = function() {
+		
+		  
+		  
+			if(cgi_request.readyState == 4 ) {
+				console.log(cgi_request.responseText)
+				if (cgi_request.responseText.trim() == "saved_succesfully")
+				{	
+					// $(".save_indicator").css('background', 'green');
+					window.cur_session_password = $(".pswd_editor_input").val();
+					save_rip();
+					$(".pswd_editor_input").val("");
+					console.log("pswd_change_confirm");
+					
+				}else{
+					// $(".save_indicator").css('background', 'red');
+					console.log("pswd_change nein");
+				}
+				
+			}
+		  
+		  
+		}
+		cgi_request.send(blob);
+	
+	
+
+}
+
+
+
+
+
+
+
+
+
+
+
+// bind all clicks for password changer
+
+$(document).ready(function(){
+
+		$(".save_new_pswd").click(function(e){
+			
+			// get width of the sidebar
+			var sidebar_width = document.querySelector('.natural_disasters').offsetWidth;
+			console.log(sidebar_width);
+			
+			$("#global_password_changer").removeClass("class_hidden");
+			
+			var global_page_width = $(document).width();
+			
+			var global_cursor_location = e.pageX;
+			
+			if (global_cursor_location < sidebar_width)
+			{
+				var new_offset = sidebar_width - global_cursor_location;
+				
+				$("#global_password_changer")
+					.css({
+						left: new_offset + global_cursor_location,
+						top: e.pageY,
+					})
+				
+			}else{
+			
+			console.log(global_cursor_location);
+			
+			$("#global_password_changer")
+				.css({
+					left: e.pageX,
+					top: e.pageY,
+				})
+			
+			}
+			
+		
+		});
+		
+		
+		
+		
+		
+		
+		// actually apply new password
+		$(".pswd_editor_btn_apply").click(function(){
+			
+			pswd_changer();
+			
+			// hude menu 
+			$("#global_password_changer").addClass("class_hidden");
+			
+			
+			
+		});
+		
+		
+		$(".pswd_editor_btn_cancel").click(function(){
+			
+			// pswd_changer();
+			
+			// hude menu 
+			$("#global_password_changer").addClass("class_hidden");
+			$(".pswd_editor_input").val("");
+			
+			
+		});
+		
+		
+});

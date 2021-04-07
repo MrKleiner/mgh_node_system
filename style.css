@@ -8,6 +8,14 @@
     font-family: "blender";
     src: url("fonts/droidsans.ttf");
 }
+
+
+
+
+
+
+
+
 .btn_blue_active_bg
 {
 	background: #5680c2 !important;
@@ -16,7 +24,7 @@
 .natural_disasters
 {
 	display: flex;
-	width: 120px;
+	width: 130px;
     position: fixed;
 	flex-direction: column;
 	background: rgba(0, 0, 0, 0.1);
@@ -35,24 +43,24 @@
 	overflow: hidden;
 }
 
-.natural_disaster_block div
+.natural_disaster_block > div
 {
 	display: flex;
 	padding: 10px;
 	user-select: none;
 }
 
-.natural_disaster_block div:not(:first-child)
+.natural_disaster_block > div:not(:first-child)
 {
 	border-top: 1px solid #373737;
 }
 
-.natural_disaster_block div:hover
+.natural_disaster_block > div:hover
 {
 	background: #3b3b3b;
 }
 
-.natural_disaster_block div:active
+.natural_disaster_block > div:active
 {
 	background: #5680c2;
 }
@@ -553,4 +561,159 @@ p
 {
 	background: #505050;
 	
+}
+
+
+.disaster_checkboxes_container:hover
+{
+	background: none !important;
+}
+
+.disaster_checkboxes_container:active
+{
+	background: none !important;
+}
+
+
+
+.disaster_checkbox_row
+{
+	display: flex;
+	width: 100%;
+	
+}
+
+.disaster_checkbox
+{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 15px;
+	height: 15px;
+	background: #666666;
+	border-radius: 3px;
+	border: 1px solid #373737;
+}
+
+.disaster_chechbox_text
+{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-left: 5px;
+	/* #666666 */
+}
+
+.disaster_checkbox_row:hover .disaster_checkbox
+{
+	background: #7a7a7a;
+}
+
+.disaster_checkbox_checkmark
+{
+  width: 2px;
+  height: 7px;
+  background: none;
+  opacity: 1;
+  transform: rotate(45deg);
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  margin-bottom: 2px;
+  /* #5379b4 */
+}
+
+.disaster_checkbox_checked_bg
+{
+	background: #5379b4 !important;
+}
+
+
+
+
+
+
+/* password editor start */
+
+.pswd_editor
+{
+	display: flex;
+	flex-direction: column;
+	position: absolute;
+	width: 300px;
+	/* height: 100px; */
+	background: #151515e0;
+	margin-top: 210px;
+	align-items: center;
+	border-radius: 5px;
+	border: 1px solid black;
+	padding-bottom: 10px;
+}
+
+
+.pswd_editor_btns
+{
+	display: flex;
+	height: 20px;
+	width: 80%;
+	/* background: #799ed7; */
+	background: #5076b2;
+	margin-top: 10px;
+	border-radius: 4px;
+	justify-content: center;
+	align-items: center;
+	border: 1px solid #3f3f3f;
+	user-select: none;
+	
+}
+
+.pswd_editor_btns:hover
+{
+	background: #799ed7;
+}
+
+.pswd_editor_btns:active
+{
+	background: #5076b2;
+}
+
+.pswd_editor_input_container
+{
+	display: flex;
+	width: 80%;
+	height: 20px;
+	outline: 0px;
+	color: white;
+	margin: 10px 5px 1px 5px;
+}
+
+.pswd_editor_input
+{
+	all: unset;
+	width: 100%;
+	height: 20px;
+	outline: 0px;
+	background: #595959;
+	color: white;
+	padding: 1px 8px 1px 8px;
+	border-radius: 4px;
+	cursor: default;
+	border: 1px solid #444444;
+}
+
+.pswd_editor_input:hover
+{
+	background: #808080;
+}
+
+.pswd_editor_input:focus
+{
+	background: #505050;
+	
+}
+
+
+#global_password_changer
+{
+	margin-top: 0px;
+	margin-left: 15px;
 }
