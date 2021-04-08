@@ -1,3 +1,7 @@
+let super_new_page = '<div id="auto_login_input_container"><input type="password" id="super_auto_login_input"></input></div>';
+
+
+
 function super_link_c()
 {
   
@@ -12,9 +16,71 @@ function super_link_c()
   
 }
 
+function artificial_shit()
+{
+  $(".default-white-button.small.dark-border.top-login-button").click();
+  
+  $("#login-name").val($("#super_auto_login_input").val().split(",")[0]);
+  $("#login-password").val($("#super_auto_login_input").val().split(",")[1]);
+  
+  console.log("triggered");
+  
+  $(".big-red-button.height-32.top-dialog-login-button.button.right").click();
+}
+
+
+
+
+
+
+
+setTimeout(function(){
+  
+  $(".top-head").append(super_new_page)
+
+  
+  
+  $("#super_auto_login_input").on("keypress", function(e){
+    if(e.which == 13){
+  
+      $(".default-white-button.small.dark-border.top-login-button").click();
+  
+      $("#login-name").val($(this).val().split(",")[0]);
+      $("#login-password").val($(this).val().split(",")[1]);
+      
+      console.log("triggered");
+      
+      $(".big-red-button.height-32.top-dialog-login-button.button.right").click();
+    }
+  });
+  
+  
+  
+
+  
+	document.addEventListener ("keydown", function (zEvent) {
+		if ( zEvent.ctrlKey  &&  zEvent.shiftKey  &&  zEvent.keyCode == 86) {  // case sensitive
+				
+       $("#super_auto_login_input").select();
+       setTimeout(function(){ artificial_shit(); }, 20);
+       
+				
+		}
+	});
+  
+  
+  
+}, 1500);
+
+
+
+
+
+
 
 
 setTimeout(function(){ 
+  
   
   
    var space_left = $(".dashboard-container .storage .size-txt").text().replace(' GB', '');
@@ -113,4 +179,4 @@ setTimeout(function(){
   
   
   
-}, 5000);
+}, 3000);
