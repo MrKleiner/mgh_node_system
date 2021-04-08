@@ -19,6 +19,8 @@ var node_hitman_mode = false;
 
 var cur_session_password = "password_is_null";
 
+var current_edited_node_col_label = "current_col_label_is_null"
+
 
 // 
 //
@@ -30,6 +32,48 @@ var cur_session_password = "password_is_null";
 var current_node_to_move = "current_node_is_nan_too_bad";
 
 var super_node_move_mode = false;
+
+
+
+
+
+
+
+// convert shit to hex. copypasta from stack overflow
+
+
+var hexDigits = new Array
+        ("0","1","2","3","4","5","6","7","8","9","a","b","c","d","e","f"); 
+
+//Function to convert rgb color to hex format
+function rgb2hex(rgb) {
+ rgb = rgb.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
+ return "#" + hex(rgb[1]) + hex(rgb[2]) + hex(rgb[3]);
+}
+
+function hex(x) {
+  return isNaN(x) ? "00" : hexDigits[(x - x % 16) / 16] + hexDigits[x % 16];
+ }
+
+
+
+
+
+
+function rgb2hex_v2(rgb) {
+    rgb = rgb.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
+    function hex(x) {
+        return ("0" + parseInt(x).toString(16)).slice(-2);
+    }
+    return "#" + hex(rgb[1]) + hex(rgb[2]) + hex(rgb[3]);
+}
+
+
+
+
+
+
+// convert shit to hex. copypasta from stack overflow
 
 
 
@@ -131,12 +175,14 @@ function event_rehandlers()
   super_node_mover()
   creds_super_copier()
   
+  bind_label_col_changer_caller()
   
   console.log("rehandled_all_triggers");
   
   // fill checkboxes
   
   checkbox_activator("export_encrypted_checkbox", $("#config_storage").attr("export_encrypted"));
+  
   
   
 }
@@ -1802,3 +1848,88 @@ $(document).ready(function(){
 		
 		
 });
+
+
+
+
+
+
+// bind color changer
+function bind_label_col_changer_caller()
+{
+	// super_node_label
+	$(".super_node_label").click(function(e){
+		
+		if (event.altKey)
+		{
+			window.current_edited_node_col_label = $(this);
+			
+			$(".global_color_editor_editor_input").val(rgb2hex_v2($(this).css("background-color")));
+			$("#global_color_label_changer").removeClass("class_hidden");
+			
+			
+			$("#global_color_label_changer")
+				.css({
+					left: e.pageX,
+					top: e.pageY,
+				})
+			
+			
+			
+		}
+
+	});
+	
+	
+}
+
+
+
+// bind label color changer
+$(document).ready(function(){
+
+		$(".global_color_editor_btn_apply").click(function(){
+			
+			
+			// $(this).closest(".global_color_editor").find(".")
+			// global_color_editor_editor_input
+			$(current_edited_node_col_label).css('background', $(".global_color_editor_editor_input").val());
+			$("#global_color_label_changer").addClass("class_hidden");
+			
+		});
+		
+		$(".global_color_editor_btn_cancel").click(function(){
+			
+			
+			// $(this).closest(".global_color_editor").find(".")
+			// global_color_editor_editor_input
+			// $(current_edited_node_col_label).css('background', $(".global_color_editor_editor_input").val());
+			
+			$("#global_color_label_changer").addClass("class_hidden");
+			
+		});
+		
+		
+		// .global_color_editor_set_default_col
+		
+		
+		$(".global_color_editor_set_default_col").click(function(){
+			
+			
+			// $(this).closest(".global_color_editor").find(".")
+			// global_color_editor_editor_input
+			// $(current_edited_node_col_label).css('background', $(".global_color_editor_editor_input").val());
+			
+			$(".global_color_editor_editor_input").val('#478847');
+			
+		});
+		
+		
+		
+		
+		
+});
+
+
+
+
