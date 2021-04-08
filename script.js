@@ -638,6 +638,8 @@ function super_content_row_adder()
 		  
 		  
 		}
+		client.setRequestHeader('Expires', "Wed, 21 Oct 2015 07:28:00 GMT");
+		client.setRequestHeader('Cache-Control', "max-age=0, must-revalidate");
 		client.send();
 	
 		
@@ -715,11 +717,16 @@ function super_node_spawner()
 		  
 		  
 		}
+		
+		client.setRequestHeader('Expires', "Wed, 21 Oct 2015 07:28:00 GMT");
+		client.setRequestHeader('Cache-Control', "max-age=0, must-revalidate");
 		client.send();
 	
 		
+		// Cache-Control: max-age=0, must-revalidate
+
+		// client.setRequestHeader('Cache-Control', "max-age=0, must-revalidate");
 		
-	
  //   $(this.closest(".super_node_content_rows_block")).append('<p>added</p>');
     
     
@@ -764,7 +771,14 @@ function super_node_spawner_l()
 		  
 		  
 		}
+		client.setRequestHeader('Expires', "Wed, 21 Oct 2015 07:28:00 GMT");
+		client.setRequestHeader('Cache-Control', "max-age=0, must-revalidate");
+		
 		client.send();
+	
+
+ 
+ 
  
 
 }
