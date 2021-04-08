@@ -4,6 +4,14 @@ var super_date = "nan_ERROR";
 
 
 
+
+
+var row_template_path = "/templates/super_row_template3.mght"
+
+var node_template_path = "/templates/super_node_template7.mght"
+
+
+
 // Fuck js. This is needed for preset system to work correctly. Use this for storing any temp element selections when reading templates
 var preset_reader_fuck_js_current_element = "nan_preset_fuck";
 
@@ -33,6 +41,9 @@ var current_node_to_move = "current_node_is_nan_too_bad";
 
 var super_node_move_mode = false;
 
+
+
+// console.log("%cThis is a green text", "font-size:50px");
 
 
 
@@ -91,7 +102,7 @@ $(document).ready(function(){
     
 	// window.preset_reader_fuck_js_current_element = $(this);
 	
-	let password_path = "personal_password.mghpas"
+	var password_path = "personal_password.mghpas"
 	
 	
 	
@@ -265,6 +276,35 @@ function creds_super_copier()
 	  
     
   });
+  
+  
+  
+  
+  
+  $(".super_node_super_smart_copier").click(function(){
+    // node_creds_email
+    // var current_container = this.closest(".super_node_creds_row");
+    // var what_to_copy = $(current_container).find(".super_node_creds_input").val();
+	if (event.ctrlKey)
+	{
+		
+	var current_login = $(this).closest(".super_node_creds_block").find(".node_creds_email").val();
+	var current_pswd = $(this).closest(".super_node_creds_block").find(".node_creds_pswd").val();
+	
+	  // console.log(what_to_copy)
+	  var $temp = $("<input>");
+	  $("body").append($temp);
+	  $temp.val(current_login + "," + current_pswd).select();
+	  document.execCommand("copy");
+	  $temp.remove(); 
+	  
+	}
+    
+  });
+  
+  
+  
+
   
 }
 
@@ -581,12 +621,12 @@ function super_content_row_adder()
     
 	window.preset_reader_fuck_js_current_element = $(this);
 	
-	let template_path = "/templates/super_row_template3.mght"
+	// var row_template_path = "/templates/super_row_template3.mght"
 	
 	
 	
 		var client = new XMLHttpRequest();
-		client.open('GET', template_path);
+		client.open('GET', row_template_path);
 		client.onreadystatechange = function() {
 		  // window.temp_template_storage = client.responseText
 		  
@@ -657,12 +697,12 @@ function super_node_spawner()
 	console.log("weve got hostiles");
 	// window.preset_reader_fuck_js_current_element = $(this).closest(".super_node");
 	
-	let template_path = "/templates/super_node_template6.mght"
+	// var node_template_path = "/templates/super_node_template6.mght"
 	
 	
 	
 		var client = new XMLHttpRequest();
-		client.open('GET', template_path);
+		client.open('GET', node_template_path);
 		client.onreadystatechange = function() {
 		  // window.temp_template_storage = client.responseText
 		  
@@ -703,17 +743,17 @@ function super_node_spawner()
 	// Spawn node from the Left. TODO: MAKE IT 1 AUTOMATIC FUNCTION
 	// ===========================================================================
 	
-	function super_node_spawner_l()
+function super_node_spawner_l()
 {
 	console.log("weve got hostiles");
 	// window.preset_reader_fuck_js_current_element = $(this).closest(".super_node");
 	
-	let template_path = "/templates/super_node_template6.mght"
+	// var node_template_path = "/templates/super_node_template6.mght"
 	
 	
 	
 		var client = new XMLHttpRequest();
-		client.open('GET', template_path);
+		client.open('GET', node_template_path);
 		client.onreadystatechange = function() {
 		  
 			if(client.readyState == 4 ) {
@@ -1307,7 +1347,7 @@ function super_load_last_save()
 
 	// super_password_loader()
 	
-	let save_path = "database_last_save.mghdbase"
+	var save_path = "database_last_save.mghdbase"
 	
 	
 	
@@ -1933,3 +1973,4 @@ $(document).ready(function(){
 
 
 
+// console.log("%cThis is a green text", "font-size:50px");

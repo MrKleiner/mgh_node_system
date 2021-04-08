@@ -6,7 +6,7 @@
           <div class="super_node_creds_block">
             <div class="super_node_creds_row">
               <div class="super_node_creds_btns_block">
-                <div class="super_node_creds_copy standard_btn_1 super_node_creds_copy_this_data">Copy</div>
+                <div class="super_node_creds_copy standard_btn_1 super_node_creds_copy_this_data super_node_super_smart_copier">Copy</div>
                 <div class="super_node_creds_edit standard_btn_1">Edit</div>
                 <div class="super_node_creds_copy standard_btn_1 node_bkey_btn">Bkey</div>
 				<div class="super_node_storage_btn standard_btn_1">Storage</div>
