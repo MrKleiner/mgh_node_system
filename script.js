@@ -1,3 +1,51 @@
+// Documentation:
+/*
+ - Row text field:
+	Shift click to edit and select all text
+	Ctrl click to edit at current pos
+
+ - Row link block
+	Click to copy link
+	Shift click to edit
+	If valid then marked with good chain piece else marked with broken chain piece
+
+ - Row date block
+	Shift click to set today's date
+	Ctrl click to edit at current position
+	
+ - Node Storage Space Left indicator is colored automatically
+	Click Storage button at the top of the node to edit the storage value
+	If "lf" is presented in the value, then a simple math operation will be executed: 15 - entered value (supposingly, space taken) = Space left
+	
+ - Node arrows
+	Click to move the node left or right
+	Shift click to add node either from left or the right
+	
+ - Node move To button
+	Click to select current node and then click arrows on other nodes to insert the selected node from the left or right
+	Alt click any To button to stop position editing
+	Click on Pos edit button from the right to stop position editing
+	
+ - Login and Password datablocks are presented as Login - Password - Mega Backup key
+	Click Copy to copy login or password. No Copy button presented for backup key.
+	Click Edit to Edit the login or password datablock.
+
+ - Node label
+	Shift click to enter edit mode and select all text 
+	Ctrl click to enter edit mode at current position
+	Alt click to change the colour
+
+ - Tools
+	Shift E or click Hitman button from the left to enter the row deletion tool and then alt click the row to move it to trash bin
+	Alt W or click Node Hitman button from the left to enter the node deletion tool and then alt click the Storage button to move to to trash bin
+	Click Flush to empty the trash bin
+	Alt S or click Save Rip button from the right to save the current profile and database
+	Alt Q or click Quit to quit the system
+	Encrypted checkbox dictates wether to encrypt the saved database or not
+	Click New Password to change the password and resave with new password
+
+*/
+
 
 // Current date storage, just because I dont want to use "return"
 var super_date = "nan_ERROR";
