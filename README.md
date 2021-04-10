@@ -12,4 +12,6 @@ To make it work:
    - You can create a shortcut to silent_launch.vbs so you can launch it from desktop or taskbar.
    - Profit
 
+P.S.
+Disable any javascript-blocking bs you have installed, since this whole system works purely on js.
 
