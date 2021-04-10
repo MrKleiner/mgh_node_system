@@ -11,6 +11,8 @@ To make it work:
    - Go to your web browser of personal preference (works best with Chrome and Mozilla) and type this into the url field: localhost:8000
    - You can create a shortcut to silent_launch.vbs so you can launch it from desktop or taskbar.
    - Profit
+   - (now just open index.html)
+
 
 P.S.
 Disable any javascript-blocking bs you have installed, since this whole system works purely on js.
