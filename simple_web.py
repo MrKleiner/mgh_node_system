@@ -3,25 +3,35 @@ import signal
 from http.server import HTTPServer, CGIHTTPRequestHandler
 
 mypid = os.getpid()
-f = open("cgi-bin\\exit_tmp.py", "r")
-file_content = f.read()
-f.close()
+file_content = None
+
+if os.name == 'posix':
+    with open("cgi-bin/exit_t", "r ") as f:
+        file_content = f.read()
+else:
+    with open("cgi-bin\\exit_tmp.py", "r") as f:
+        file_content = f.read()
 
 file_content = file_content.replace("xxxxx", str(mypid))
 
-f = open("cgi-bin\\exit.py", "w")
-f.write(file_content)
-f.close()
+if os.name == 'posix':
+    with open("cgi-bin/exit.py", "w") as f:
+        f.write(file_content)
+else:
+    with open("cgi-bin\\exit.py", "w") as f:
+        f.write(file_content)
 
 
 def receive_signal(signum, stack):
     print('Received signal: ', signum)
     global some_global_var_that_my_request_controller_will_set
     some_global_var_that_my_request_controller_will_set = False
-    
+
+
 signal.signal(signal.SIGBREAK, receive_signal)
 
 some_global_var_that_my_request_controller_will_set = True
+
 
 def keep_running():
     global some_global_var_that_my_request_controller_will_set
@@ -34,7 +44,6 @@ httpd = HTTPServer(server_address, CGIHTTPRequestHandler)
 while keep_running():
     print("start  handle request")
     httpd.handle_request()
-    print("finish handle request")    
-    
-    
+    print("finish handle request")
+
 os.kill(mypid, signal.SIGTERM)
