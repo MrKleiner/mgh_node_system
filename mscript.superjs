@@ -70,6 +70,19 @@ setTimeout(function(){
   
   
   
+  
+  	document.addEventListener ("keydown", function (zEvent) {
+		if ( zEvent.shiftKey  &&  zEvent.keyCode == 81) {  // case sensitive
+				
+				$(".top-menu-item.top-white-button.logout").click();
+				
+       
+		}
+	});
+  
+  
+  
+  
 }, 1500);
 
 
