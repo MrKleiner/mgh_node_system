@@ -8,12 +8,12 @@ data = sys.stdin.read()
 # form = cgi.FieldStorage()
 # domrip=form.getvalue('domrip')
 # data = sys.stdin.read(int(os.environ.get('HTTP_CONTENT_LENGTH', 0)))
-print ("Content-type:text/plain\r\n\r\n")
+print("Content-type:text/plain\r\n\r\n")
 if data and len(data) > 1:
     f = open("personal_password.mghpas", "w")
     f.write(data)
     f.close()
     print("saved_succesfully")
-    
+
 else:
     print("db_save_error_too_bad")
