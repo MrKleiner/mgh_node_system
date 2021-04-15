@@ -7,6 +7,5 @@ print("killme_no_later")
 try:
     print(str(xxxxx) + " kill this pid!")
     os.kill(xxxxx, signal.CTRL_BREAK_EVENT)
-
 except OSError as e:
     print("os_super_error: " + str(e))

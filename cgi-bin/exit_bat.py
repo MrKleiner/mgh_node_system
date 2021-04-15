@@ -1,3 +1,3 @@
 import subprocess
 
-subprocess.call([r'kill_everything.bat'])
+subprocess.call([r"kill_everything.bat"])

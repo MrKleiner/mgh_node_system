@@ -3,15 +3,13 @@ import signal
 from http.server import HTTPServer, CGIHTTPRequestHandler
 
 mypid = os.getpid()
-f = open("cgi-bin\\exit_tmp.py", "r")
-file_content = f.read()
-f.close()
+with open("cgi-bin\\exit_tmp.py", "r") as f:
+    file_content = f.read()
 
 file_content = file_content.replace("xxxxx", str(mypid))
 
-f = open("cgi-bin\\exit.py", "w")
-f.write(file_content)
-f.close()
+with open("cgi-bin\\exit.py", "w") as f:
+    f.write(file_content)
 
 
 def receive_signal(signum, stack):
