@@ -219,7 +219,9 @@ body
         url("assets/super_grid.svg");
 		
 		background-size: 100px;	
-	
+		
+		
+	background: none;
 }
 p
 {

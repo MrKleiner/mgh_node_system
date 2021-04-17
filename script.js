@@ -550,12 +550,15 @@ function super_node_indexer()
 	// number every node. Just for fun for now
 	
 	
-    $(".super_node").each(function(i) {
+    $(".super_node").not(".global_trash_to_flush").each(function(i) {
+		
         i = (i + 1);
         // $(this).find(".super_node_label_text").text(i.substr(i.length - 4));
 		 // $(this).attr('mgh_node_number', i.substr(i.length - 4));
 		 $(this).attr('mgh_node_number', i);
     });
+	
+	$(".global_trash_to_flush").removeAttr("mgh_node_number");
   
 }
 
@@ -955,7 +958,7 @@ function super_row_content_link_editor_activator()
 	$(".super_node_content_copy_link").click(function(e){
 		
 		// $(document).height();
-		var global_page_width = $(document).width();
+		var global_page_width = window.innerWidth;
 		
 		var global_cursor_location = e.pageX;
 		
@@ -967,7 +970,7 @@ function super_row_content_link_editor_activator()
 				.css({
 					left: new_link_editor_x,
 					top: e.pageY,
-				})
+				});
 			
 		}else{
 		
@@ -1890,7 +1893,7 @@ $(document).ready(function(){
 			
 			$("#global_password_changer").removeClass("class_hidden");
 			
-			var global_page_width = $(document).width();
+			var global_page_width = window.innerWidth;
 			
 			var global_cursor_location = e.pageX;
 			
@@ -1962,22 +1965,51 @@ function bind_label_col_changer_caller()
 	// super_node_label
 	$(".super_node_label").click(function(e){
 		
+		
 		if (event.altKey)
 		{
+			
+			var global_page_width = window.innerWidth;
+			
+			var global_cursor_location = e.pageX;
+			
 			window.current_edited_node_col_label = $(this);
+			
 			
 			$(".global_color_editor_editor_input").val(rgb2hex_v2($(this).css("background-color")));
 			$("#global_color_label_changer").removeClass("class_hidden");
 			
+
 			
-			$("#global_color_label_changer")
+			// console.log("global_page_width" + global_page_width);
+			// console.log("global_cursor_location" + global_cursor_location);
+			// console.log("fucking difference" + (global_page_width - global_cursor_location));
+			
+			if ((global_page_width - global_cursor_location) < 300)
+			{
+				var new_link_editor_x = global_cursor_location - 300;
+				$("#global_color_label_changer")
+				.css({
+					left: new_link_editor_x,
+					top: e.pageY,
+				});
+				
+			}else{
+				
+				
+				// console.log("SOUP CAN PYRO");
+				
+				$("#global_color_label_changer")
 				.css({
 					left: e.pageX,
 					top: e.pageY,
-				})
+				});
+				
+			}
 			
 			
-			
+		}else{
+			// console.log("else color trigger initial");
 		}
 
 	});
