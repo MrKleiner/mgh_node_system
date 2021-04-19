@@ -1563,8 +1563,11 @@ function input_enters()
 			if (thiser.includes("lf"))
 			{
 				console.log("if checked");
-				$(this).attr('value', 15 - thiser.replace("lf", ""));
-				$(this).val(15 - thiser.replace("lf", ""));
+				var roundnum1 = parseFloat(15 - parseFloat(thiser.replace("lf", "")));
+				var roundnum_result = Math.round((roundnum1 + Number.EPSILON) * 100) / 100;
+				
+				$(this).attr('value', roundnum_result);
+				$(this).val(roundnum_result);
 				$(this).blur();
 				space_left_color_indicator()
 				$(this).css('pointer-events', 'none');
@@ -1599,8 +1602,11 @@ function input_enters()
 			if (thiser.includes("lf"))
 			{
 				console.log("if checked");
-				$(this).attr('value', 15 - thiser.replace("lf", ""));
-				$(this).val(15 - thiser.replace("lf", ""));
+				var roundnum1 = parseFloat(15 - parseFloat(thiser.replace("lf", "")));
+				var roundnum_result = Math.round((roundnum1 + Number.EPSILON) * 100) / 100;
+				
+				$(this).attr('value', roundnum_result);
+				$(this).val(roundnum_result);
 				$(this).blur();
 				space_left_color_indicator();
 				$(this).css('pointer-events', 'none');
