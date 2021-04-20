@@ -2074,3 +2074,34 @@ $(document).ready(function(){
 
 
 // console.log("%cThis is a green text", "font-size:50px");
+
+
+
+
+
+
+
+
+
+function super_node_spawner_fuck()
+{
+
+	console.log("fuck you");
+
+	var client = new XMLHttpRequest();
+	client.open('GET', node_template_path);
+	client.onreadystatechange = function() {
+
+		if(client.readyState == 4 ) {
+			$(".nodes_main_container").append(client.responseText);
+			event_rehandlers();
+			super_row_adder_trigger_date();
+		}
+	  
+	  
+	}
+	
+	client.setRequestHeader('Expires', "Wed, 21 Oct 2015 07:28:00 GMT");
+	client.setRequestHeader('Cache-Control', "max-age=0, must-revalidate");
+	client.send();
+}
