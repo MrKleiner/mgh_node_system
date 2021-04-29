@@ -203,8 +203,11 @@ function event_rehandlers()
   // super_password_loader()
   // load last save
   // super_load_last_save()
+  
+  // unbind everything inside canvas
   unbind_all()
   
+  // now, bind everything again
   creds_edit_toggler()
   space_left_color_indicator()
   super_lawn_mover()
@@ -1796,6 +1799,9 @@ $(document).ready(function(){
 // }
 
 
+
+
+// cbid = selector for the checkbox, state = set the checkbox state to... 1 = true, 0 = false
 function checkbox_activator(cbid, cstate)
 {
 	var current_cbox = $("#" + cbid).closest(".disaster_checkbox_row");
