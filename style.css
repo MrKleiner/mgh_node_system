@@ -1,13 +1,58 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
 
-
-
 @font-face 
 {
 	
     font-family: "blender";
     src: url("fonts/droidsans.ttf");
 }
+
+*
+{
+	scrollbar-color: yellow blue;
+}
+
+body > span
+{
+	background: black !important;
+	z-index: 9999 !important;
+	font-size: 20px;
+	color: white;
+}
+
+
+body::-webkit-scrollbar {
+  width: 1em;
+  background: gray;
+}
+ 
+body::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+ 
+body::-webkit-scrollbar-thumb {
+  background-color: black;
+  /* outline: 1px solid slategrey; */
+  
+}
+
+
+body::-moz-scrollbar {
+  width: 1em;
+  background: gray;
+}
+ 
+body::-moz-scrollbar-track {
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+ 
+body::-moz-scrollbar-thumb {
+  background-color: black;
+  /* outline: 1px solid slategrey; */
+  
+}
+
+
 
 
 input[type="color"] {
