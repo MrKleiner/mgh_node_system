@@ -241,6 +241,7 @@ function event_rehandlers()
   // fill checkboxes
   
   checkbox_activator("export_encrypted_checkbox", $("#config_storage").attr("export_encrypted"));
+  $("noscript").remove();
   
   
   
