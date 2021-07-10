@@ -110,13 +110,11 @@ function rgb2hex(rgb) {
  return "#" + hex(rgb[1]) + hex(rgb[2]) + hex(rgb[3]);
 }
 
+/*
 function hex(x) {
   return isNaN(x) ? "00" : hexDigits[(x - x % 16) / 16] + hexDigits[x % 16];
  }
-
-
-
-
+*/
 
 
 function rgb2hex_v2(rgb) {
@@ -136,7 +134,26 @@ function rgb2hex_v2(rgb) {
 
 
 
-
+// cbid = selector for the checkbox, state = set the checkbox state to... 1 = true, 0 = false
+function checkbox_activator(cbid, cstate)
+{
+	var current_cbox = $("#" + cbid).closest(".disaster_checkbox_row");
+	// var current_cbox_state = $(current_cbox).find(".disaster_checkbox_checkmark").attr("mgh_checkbox_checked");
+	if (cstate > 0)
+	{
+		$(current_cbox).find(".disaster_checkbox_checkmark").attr("mgh_checkbox_checked", "1");
+		$(current_cbox).find(".disaster_checkbox").addClass("disaster_checkbox_checked_bg");
+		$(current_cbox).find(".disaster_checkbox_checkmark").removeClass("class_hidden");
+	}
+	
+	if (cstate == 0)
+	{	
+		$(current_cbox).find(".disaster_checkbox_checkmark").attr("mgh_checkbox_checked", "0");
+		$(current_cbox).find(".disaster_checkbox").removeClass("disaster_checkbox_checked_bg");
+		$(current_cbox).find(".disaster_checkbox_checkmark").addClass("class_hidden");
+	}
+	
+}
 
 
 
@@ -210,7 +227,7 @@ function event_rehandlers()
   // now, bind everything again
   creds_edit_toggler()
   space_left_color_indicator()
-  super_lawn_mover()
+  // super_lawn_mover()
   super_node_indexer()
   super_date_editor()
   super_dater()
@@ -364,12 +381,12 @@ function creds_super_copier()
 
 function space_left_color_indicator()
 {
-	
+	console.log('called space left color indicators')
 	// =============================================================
 	// This function refereshes all the color indicators on the page
 	// =============================================================
 	
-  var oldmax = 15;
+  var oldmax = 20;
   var oldmin = 0;
 
   var newmax = 120;
@@ -397,154 +414,150 @@ function space_left_color_indicator()
 
 
 
-function super_lawn_mover()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function super_node_insert(side, node)
+{
+	// inserts a node when node move mode
+	if (side == 'r')
+	{
+		// also applies for the other side
+		// Now actually insert the node
+		$(node).after(current_node_to_move);
+		// once done - set the move mode to false
+		window.super_node_move_mode = false;
+		// visual feedback: Make the button not glow anymore and set the text
+		$(".super_node_pos_edit_status").removeClass("btn_blue_active_bg");
+		$(".super_node_pos_edit_status").text("Pos edit: false");
+		console.log('moved node to the Right');
+	}
+	if (side == 'l')
+	{
+		$(node).before(current_node_to_move);
+		window.super_node_move_mode = false;
+		$(".super_node_pos_edit_status").removeClass("btn_blue_active_bg");
+		$(".super_node_pos_edit_status").text("Pos edit: false")
+		console.log('moved node to the Left');
+	}
+}
+
+function super_node_spawn(side, node)
+{
+	console.log('new node spawner called');
+	// spawns a node from the given side
+	var client = new XMLHttpRequest();
+	client.open('GET', node_template_path);
+	client.onreadystatechange = function() {
+		if(client.readyState == 4 ) {
+			if (side == 'r')
+			{
+				node.after(client.responseText);
+				console.log('tried to create a node from the Right');
+				space_left_color_indicator()
+			}
+			if (side == 'l')
+			{
+				node.before(client.responseText);
+				console.log('tried to create a node from the Left');
+				space_left_color_indicator()
+			}
+			super_row_adder_trigger_date();
+		}
+	}
+	client.setRequestHeader('Expires', "Wed, 21 Oct 2015 07:28:00 GMT");
+	client.setRequestHeader('Cache-Control', "max-age=0, must-revalidate");
+	client.send();
+}
+
+function super_node_move(where, node)
 {
 	
-	// ===================================================================
-	// This function is responsible for moving the nodes and creating them
-	// ===================================================================
+	console.log('where is ' + where)
 	
+	if (where == 'r')
+	{
+		console.log('exec l');
+		node.insertBefore(node.prev());	
+		super_node_indexer();
+	}
 	
-  
-  $(".super_node_ctrl_move_r_btn").click(function(){
-    
-	
-	
-    if (event.shiftKey)
-    {
-		
-		
-		if (super_node_move_mode)
-		{
-			
-		}else{
-		
-			window.preset_reader_fuck_js_current_element = $(this).closest(".super_node");
-			super_node_spawner();
-			clearSelection();
-		}
-
-
-
-
-    }else{
-		
-		if (super_node_move_mode)
-		{
-			// current_node_to_move
-			
-			
-			var current_super_node = $(this).closest(".super_node");
-			
-			
-			$(current_super_node).after(current_node_to_move);
-			
-			window.super_node_move_mode = false;
-			$(".super_node_pos_edit_status").removeClass("btn_blue_active_bg");
-			$(".super_node_pos_edit_status").text("Pos edit: false")
-			console.log("are we even here")
-			
-		}else{
-			
-			
-			var elm = $(this).closest(".super_node");
-			
-			elm.insertAfter(elm.next());
-			
-			super_node_indexer()
-			
-			
-			
-			
-		}
-		
-		
-		
-
+	if (where == 'l')
+	{
+		console.log('exec r');
+		node.insertAfter(node.next());	
+		super_node_indexer();
 	}
 	
 	
-	
-//    console.log("click");
-    
-//    var grab_node = $(this).closest(".super_node");
-    
-
-    
-  //   $(grab_node).prev().insertAfter(grab_node);
-    
-    // .next()
-    
-  });
-  
-  
-  
-  
-  
-  
-  console.log("move_btns_binded")
-  
-  
-  
-  
-  
-  
-  $(".super_node_ctrl_move_l_btn").click(function(){
-    
-    if (event.shiftKey)
-    {
-		
-		
-		if (super_node_move_mode)
-		{
-			
-		}else{
-			
-			window.preset_reader_fuck_js_current_element = $(this).closest(".super_node");
-			super_node_spawner_l()
-		}
-		
-
-    }else{
-		
-		
-		
-		if (super_node_move_mode)
-		{
-			// current_node_to_move
-			
-			
-			var current_super_node = $(this).closest(".super_node");
-			
-			
-			$(current_super_node).before(current_node_to_move);
-			
-			window.super_node_move_mode = false;
-			$(".super_node_pos_edit_status").removeClass("btn_blue_active_bg");
-			$(".super_node_pos_edit_status").text("Pos edit: false")
-			console.log("are we even here")
-			
-		}else{
-		
-			var elm = $(this).closest(".super_node");
-			
-			elm.insertBefore(elm.prev());
-			
-			super_node_indexer()
-		
-		}
-	}
-    
-
-    
-  //   $(grab_node).prev().insertAfter(grab_node);
-    
-    // .next()
-    
-  });
-  
-  
 }
+
+document.addEventListener('click', event => {
+
+	// listen for clicks on move left/right buttons
+    const super_node_ctrl_move = event.target.closest('.super_node_ctrl_move');
+    if (super_node_ctrl_move)
+	{
+		// set btn side
+		if ($(super_node_ctrl_move).hasClass('super_node_ctrl_move_l_btn'))
+		{
+			var btn_side = 'l';
+		}
+		if ($(super_node_ctrl_move).hasClass('super_node_ctrl_move_r_btn'))
+		{
+			var btn_side = 'r';
+		}
+		console.log('btn_side is ' + btn_side)
+		
+		var thisnode = $(super_node_ctrl_move).closest(".super_node");
+		if (event.shiftKey && super_node_move_mode !== true)
+		{
+			window.preset_reader_fuck_js_current_element = $(super_node_ctrl_move).closest(".super_node");
+			
+			console.log('clicked create from the' + btn_side + 'by new standards');
+			super_node_spawn(btn_side, thisnode);
+		}
+		
+		if (super_node_move_mode)
+		{
+			console.log('trying to insert the node');
+
+			super_node_insert(btn_side, thisnode);
+		}
+		
+		if (event.shiftKey == false && super_node_move_mode == false)
+		{
+			console.log('trying to move the node');
+			super_node_move(btn_side, thisnode)
+			
+		}
+		
+	}
+
+});
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -553,17 +566,14 @@ function super_node_indexer()
   
 	// number every node. Just for fun for now
 	
-	
     $(".super_node").not(".global_trash_to_flush").each(function(i) {
-		
-        i = (i + 1);
-        // $(this).find(".super_node_label_text").text(i.substr(i.length - 4));
-		 // $(this).attr('mgh_node_number', i.substr(i.length - 4));
-		 $(this).attr('mgh_node_number', i);
+		i = (i + 1);
+		// $(this).find(".super_node_label_text").text(i.substr(i.length - 4));
+		// $(this).attr('mgh_node_number', i.substr(i.length - 4));
+		$(this).attr('mgh_node_number', i);
     });
 	
 	$(".global_trash_to_flush").removeAttr("mgh_node_number");
-  
 }
 
 function super_date_editor()
@@ -745,7 +755,7 @@ function super_row_adder_trigger_date()
 	// Spawn node from the right
 	// ===========================================================================
 
-
+/*
 function super_node_spawner()
 {
 
@@ -837,7 +847,7 @@ function super_node_spawner_l()
  
 
 }
-
+*/
 
 function scale_us()
 {
@@ -1365,7 +1375,7 @@ $(document).ready(function(){
 
 
 document.addEventListener ("keydown", function (zEvent) {
-    if ( zEvent.shiftKey  &&  zEvent.keyCode == 69) {  // case sensitive
+    if ( zEvent.shiftKey  &&  zEvent.keyCode == 69) {  // case sensitive 69 = nice
         // DO YOUR STUFF HERE
 		window.hitman_mode ^= true;
 		$(".super_util_del_rows").toggleClass("btn_blue_active_bg");
@@ -1797,35 +1807,6 @@ $(document).ready(function(){
 	});
 });
 // }
-
-
-
-
-// cbid = selector for the checkbox, state = set the checkbox state to... 1 = true, 0 = false
-function checkbox_activator(cbid, cstate)
-{
-	var current_cbox = $("#" + cbid).closest(".disaster_checkbox_row");
-	// var current_cbox_state = $(current_cbox).find(".disaster_checkbox_checkmark").attr("mgh_checkbox_checked");
-	if (cstate > 0)
-	{
-		$(current_cbox).find(".disaster_checkbox_checkmark").attr("mgh_checkbox_checked", "1");
-		$(current_cbox).find(".disaster_checkbox").addClass("disaster_checkbox_checked_bg");
-		$(current_cbox).find(".disaster_checkbox_checkmark").removeClass("class_hidden");
-	}
-	
-	if (cstate == 0)
-	{	
-		$(current_cbox).find(".disaster_checkbox_checkmark").attr("mgh_checkbox_checked", "0");
-		$(current_cbox).find(".disaster_checkbox").removeClass("disaster_checkbox_checked_bg");
-		$(current_cbox).find(".disaster_checkbox_checkmark").addClass("class_hidden");
-	}
-	
-	
-	
-	
-	
-}
-
 
 
 
