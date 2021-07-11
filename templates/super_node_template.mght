@@ -12,7 +12,7 @@
 				<div class="super_node_storage_btn standard_btn_1">Storage</div>
               </div>
                <div class="super_node_creds_text">
-                 <input type="text" class="super_node_creds_input node_creds_email" value="pootis">
+                 <input type="text" class="super_node_creds_input node_creds_email" value="jemail">
                </div>
             </div>
             <div class="super_node_creds_row">
@@ -21,12 +21,12 @@
                 <div class="super_node_creds_edit standard_btn_1">Edit</div>
               </div>
                <div class="super_node_creds_text">
-                 <input type="text" class="super_node_creds_input node_creds_pswd" value="pootis">
+                 <input type="text" class="super_node_creds_input node_creds_pswd" value="jpas">
                </div>
             </div>
             <div class="super_node_creds_row super_node_creds_row_bkey">
                <div class="super_node_creds_text">
-                 <input type="text" class="super_node_creds_input node_creds_bkey" value="pootis">
+                 <input type="text" class="super_node_creds_input node_creds_bkey" value="jkey">
                </div>
             </div>
           </div>
@@ -40,7 +40,7 @@
             </div>
           </div>
           <div class="super_node_space_left">
-            <div class="node_space_left_num"><input class="node_space_left_super_num" value="15" readonly="1"></input><a>GB</a></div>
+            <div class="node_space_left_num"><input class="node_space_left_super_num" value="20" readonly="1"></input><a>GB</a></div>
             <div class="node_space_left_ind"></div>
           </div>
           <div class="super_node_content_rows_block">
