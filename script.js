@@ -129,6 +129,7 @@ function clearSelection() {
 	// ==================================================================================
 	// Copypasted from stackoverflow. Call this to remove any selection on the whole page
 	// ==================================================================================
+	// return
     var sel;
     if ( (sel = document.selection) && sel.empty ) {
         sel.empty();
@@ -200,11 +201,13 @@ function super_node_spawn(side, node)
 				console.log('tried to create a node from the Left');
 				space_left_color_indicator()
 			}
+			super_node_indexer()
 		}
 	}
 	client.setRequestHeader('Expires', 'Wed, 21 Oct 2015 07:28:00 GMT');
 	client.setRequestHeader('Cache-Control', 'max-age=0, must-revalidate');
 	client.send();
+	
 }
 
 // this will move the node either to the left or the right
@@ -226,7 +229,7 @@ function super_node_move(where, node)
 		node.insertAfter(node.next());	
 		super_node_indexer();
 	}
-	
+	super_node_indexer()
 	
 }
 
@@ -291,7 +294,8 @@ document.addEventListener ('change', function (event) {
 
 document.addEventListener ('focusout', function (event) {
 
-    const rowname_input = event.target.closest('.super_node_content_text');
+	// shared applicable input on focus out
+    const rowname_input = event.target.closest('.applicable_input');
     if (rowname_input) { super_row_text_editor_applier(rowname_input, event, 'unfocus') }
 	
 });
@@ -303,8 +307,8 @@ document.addEventListener ('keypress', function (event) {
     // if ( zEvent.keyCode == 27)
     // if ( zEvent.altKey  &&  zEvent.keyCode == 87  )
 	
-
-    const rowname_input = event.target.closest('.super_node_content_text');
+	// shared applicable input on enter
+    const rowname_input = event.target.closest('.applicable_input');
     if (rowname_input) { super_row_text_editor_applier(rowname_input, event, 'enter') }
 	
 });
@@ -330,7 +334,7 @@ document.addEventListener('click', event => {
 	
 	// open edit backup key
     const backup_key_edit = event.target.closest('.node_bkey_btn');
-    if (backup_key_edit) { creds_edit_toggler(backup_key_edit) }
+    if (backup_key_edit) { creds_bkey_edit_toggle(backup_key_edit) }
 	
 	// copy login/pswd
     const copy_logpswd = event.target.closest('.super_node_creds_copy_this_data');
@@ -355,6 +359,10 @@ document.addEventListener('click', event => {
 	// apply link btn
     const apply_link = event.target.closest('.content_link_editor_btns');
     if (apply_link) { rowlink_editor_apply_link(apply_link) }
+	
+	// date block mechanism. More events handled through "onselect"
+    const date_block = event.target.closest('.super_node_content_date');
+    if (date_block) { node_row_date_block(date_block, event) }
 });
 
 
@@ -366,7 +374,7 @@ function creds_edit_toggler(etgt)
 }
 function creds_bkey_edit_toggle(etgt)
 {
-	$(etgt).closest('.super_node_creds_row').find('.super_node_creds_row_bkey').toggleClass('class_hidden');
+	$(etgt).closest('.super_node_creds_block').find('.super_node_creds_row_bkey').toggleClass('class_hidden');
 }
 
 // copy credits to clipboard
@@ -375,7 +383,7 @@ function copy_this_creds(etgt)
 	liz3_copytext($(etgt).closest('.super_node_creds_row').find('.super_node_creds_input').val());
 }
 
-// create node from the left or the right
+// create, move or insert node from the left or the right
 function mknodes(etgt, evee)
 {
 	// define side
@@ -405,6 +413,7 @@ function mknodes(etgt, evee)
 			super_node_move(btn_side, cnode)
 		}
 	}
+	
 }
 
 
@@ -482,7 +491,9 @@ function super_row_text_editor_applier(etgt, eevee, action)
 }
 
 
-
+// make link button work:
+// if shift click - open link editor box, if too close to the right - clamp position
+// if left click - copy link to buffer
 function node_row_mlink_activator(etgt, eevee)
 {
 	var global_page_width = window.innerWidth;
@@ -568,7 +579,17 @@ function rowlink_editor_apply_link(etgt)
 }
 
 
-
+function node_row_date_block(etgt, eevee)
+{
+	if (eevee.ctrlKey)
+	{
+		$(etgt).prop('readonly', false);
+	}
+	if (eevee.shiftKey)
+	{
+		$(etgt).val(super_dater());
+	}
+}
 
 
 

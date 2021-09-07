@@ -1,50 +1,50 @@
-      <div class="super_node" mgh_node_number="node_num_is_null">
-        <div class="super_node_inner_container">
-          <div class="super_node_label">
-            <input class="super_node_label_text" value="Node" readonly="1"></input>
-          </div>
-          <div class="super_node_creds_block">
-            <div class="super_node_creds_row">
-              <div class="super_node_creds_btns_block">
-                <div class="super_node_creds_copy standard_btn_1 super_node_creds_copy_this_data super_node_super_smart_copier">Copy</div>
-                <div class="super_node_creds_edit standard_btn_1">Edit</div>
-                <div class="super_node_creds_copy standard_btn_1 node_bkey_btn">Bkey</div>
-				<div class="super_node_storage_btn standard_btn_1">Storage</div>
-              </div>
-               <div class="super_node_creds_text">
-                 <input type="text" class="super_node_creds_input node_creds_email" value="jemail">
-               </div>
-            </div>
-            <div class="super_node_creds_row">
-              <div class="super_node_creds_btns_block">
-                <div class="super_node_creds_copy standard_btn_1 super_node_creds_copy_this_data">Copy</div>
-                <div class="super_node_creds_edit standard_btn_1">Edit</div>
-              </div>
-               <div class="super_node_creds_text">
-                 <input type="text" class="super_node_creds_input node_creds_pswd" value="jpas">
-               </div>
-            </div>
-            <div class="super_node_creds_row super_node_creds_row_bkey">
-               <div class="super_node_creds_text">
-                 <input type="text" class="super_node_creds_input node_creds_bkey" value="jkey">
-               </div>
-            </div>
-          </div>
-          <div class="super_node_ctrl_row">
-            <div class="super_node_ctrl_move standard_btn_1 super_node_ctrl_move_l_btn">
-            <div class="super_node_ctrl_move_l"></div>
-            </div>
-            <div class="super_node_ctrl_move super_node_ctrl_move_to standard_btn_1">To</div>
-            <div class="super_node_ctrl_move standard_btn_1 super_node_ctrl_move_r_btn">
-              <div class="super_node_ctrl_move_r"></div>
-            </div>
-          </div>
-          <div class="super_node_space_left">
-            <div class="node_space_left_num"><input class="node_space_left_super_num" value="20" readonly="1"></input><a>GB</a></div>
-            <div class="node_space_left_ind"></div>
-          </div>
-          <div class="super_node_content_rows_block">
-            <div class="super_node_add_content_row_btn standard_btn_1">Add</div>
-          </div>
-      </div>
-    </div>
+  <div class="super_node" mgh_node_number="node_num_is_null">
+	<div class="super_node_inner_container">
+	  <div class="super_node_label">
+		<input class="super_node_label_text" value="Node" readonly="1"></input>
+	  </div>
+	  <div class="super_node_creds_block">
+		<div class="super_node_creds_row">
+		  <div class="super_node_creds_btns_block">
+			<div class="super_node_creds_copy standard_btn_1 super_node_creds_copy_this_data super_node_super_smart_copier">Copy</div>
+			<div class="super_node_creds_edit standard_btn_1">Edit</div>
+			<div class="super_node_creds_copy standard_btn_1 node_bkey_btn">Bkey</div>
+			<div class="super_node_storage_btn standard_btn_1">Storage</div>
+		  </div>
+		   <div class="super_node_creds_text">
+			 <input type="text" class="super_node_creds_input node_creds_email" value="jemail">
+		   </div>
+		</div>
+		<div class="super_node_creds_row">
+		  <div class="super_node_creds_btns_block">
+			<div class="super_node_creds_copy standard_btn_1 super_node_creds_copy_this_data">Copy</div>
+			<div class="super_node_creds_edit standard_btn_1">Edit</div>
+		  </div>
+		   <div class="super_node_creds_text">
+			 <input type="text" class="super_node_creds_input node_creds_pswd" value="jpas">
+		   </div>
+		</div>
+		<div class="super_node_creds_row super_node_creds_row_bkey">
+		   <div class="super_node_creds_text">
+			 <input type="text" class="super_node_creds_input node_creds_bkey" value="jkey">
+		   </div>
+		</div>
+	  </div>
+	  <div class="super_node_ctrl_row">
+		<div class="super_node_ctrl_move standard_btn_1 super_node_ctrl_move_l_btn">
+		<div class="super_node_ctrl_move_l"></div>
+		</div>
+		<div class="super_node_ctrl_move super_node_ctrl_move_to standard_btn_1">To</div>
+		<div class="super_node_ctrl_move standard_btn_1 super_node_ctrl_move_r_btn">
+		  <div class="super_node_ctrl_move_r"></div>
+		</div>
+	  </div>
+	  <div class="super_node_space_left">
+		<div class="node_space_left_num"><input class="node_space_left_super_num" value="20" readonly="1"></input><a>GB</a></div>
+		<div class="node_space_left_ind"></div>
+	  </div>
+	  <div class="super_node_content_rows_block">
+		<div class="super_node_add_content_row_btn standard_btn_1">Add</div>
+	  </div>
+  </div>
+</div>
